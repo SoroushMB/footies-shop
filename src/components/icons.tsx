@@ -1,6 +1,14 @@
 import type { SVGProps } from "react"
 
 export const Icons = {
+  logo: (props: SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M7 15l-4-4 4-4"/>
+      <path d="M10.13 15H3"/>
+      <path d="M17 9l4 4-4 4"/>
+      <path d="M13.87 9h7.13"/>
+    </svg>
+  ),
   visa: (props: SVGProps<SVGSVGElement>) => (
     <svg width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#fff" />
