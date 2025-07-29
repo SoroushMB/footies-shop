@@ -31,14 +31,14 @@ export default function RootLayout({
           poppins.variable
         )}
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1920&auto=format&fit=crop')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1546608235-3310a2494cdf?q=80&w=1920&auto=format&fit=crop')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
         }}
         data-ai-hint="stadium background"
       >
-        <div className="relative flex min-h-screen flex-col backdrop-blur-2xl bg-black/30">
+        <div className="relative flex min-h-screen flex-col backdrop-blur-lg bg-black/50">
           <CartProvider>
             <SiteHeader />
             <main className="flex-1 container mx-auto px-4 py-8 pt-24">
