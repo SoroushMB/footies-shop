@@ -27,22 +27,18 @@ export default function HomePage() {
 
   return (
     <div className="space-y-20">
-      <section className="text-center py-20 relative overflow-hidden rounded-3xl glassmorphism">
-        <div className="absolute inset-0">
-            <Image 
-                src="https://images.unsplash.com/photo-1551958214-e62686150c9e?q=80&w=2070&auto=format&fit=crop"
-                alt="New Arrivals"
-                layout="fill"
-                objectFit="cover"
-                className="opacity-20"
-                data-ai-hint="football player celebration"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
-        </div>
-        <div className="relative z-10">
-          <div
-            className="absolute inset-0 bg-grid-white/[0.05] [mask-image:linear-gradient(to_bottom,white_50%,transparent_100%)]"
-          ></div>
+      <section className="text-center py-10 relative overflow-hidden rounded-3xl glassmorphism">
+        <div className="relative z-10 flex flex-col items-center">
+            <div className="relative w-full max-w-lg h-64 mb-8">
+                <Image 
+                    src="https://images.unsplash.com/photo-1551958214-e62686150c9e?q=80&w=1200&auto=format&fit=crop"
+                    alt="New Arrivals"
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-xl"
+                    data-ai-hint="football player celebration"
+                />
+            </div>
           <h1 className="text-5xl md:text-7xl font-bold font-headline bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50 tracking-tight">
             Elevate Your Game
           </h1>
