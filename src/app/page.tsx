@@ -23,22 +23,50 @@ export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
   const popularProducts = getPopularProducts();
   const categories = getCategories();
-  const [api, setApi] = React.useState<CarouselApi>()
-  const [current, setCurrent] = React.useState(0)
-  const [count, setCount] = React.useState(0)
+  
+  const [heroApi, setHeroApi] = React.useState<CarouselApi>()
+  const [heroCurrent, setHeroCurrent] = React.useState(0)
+
+  const [featuredApi, setFeaturedApi] = React.useState<CarouselApi>()
+  const [featuredCurrent, setFeaturedCurrent] = React.useState(0)
+  
+  const [popularApi, setPopularApi] = React.useState<CarouselApi>()
+  const [popularCurrent, setPopularCurrent] = React.useState(0)
+
+  const [slidesToShow, setSlidesToShow] = React.useState(4);
 
   React.useEffect(() => {
-    if (!api) {
-      return
+    function updateSlidesToShow() {
+      if (window.innerWidth < 640) {
+        setSlidesToShow(2);
+      } else if (window.innerWidth < 1024) {
+        setSlidesToShow(3);
+      } else {
+        setSlidesToShow(4);
+      }
     }
- 
-    setCount(api.scrollSnapList().length)
-    setCurrent(api.selectedScrollSnap())
- 
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap())
-    })
-  }, [api])
+    updateSlidesToShow();
+    window.addEventListener('resize', updateSlidesToShow);
+    return () => window.removeEventListener('resize', updateSlidesToShow);
+  }, []);
+
+  React.useEffect(() => {
+    if (!heroApi) return;
+    setHeroCurrent(heroApi.selectedScrollSnap());
+    heroApi.on("select", () => setHeroCurrent(heroApi.selectedScrollSnap()));
+  }, [heroApi]);
+  
+  React.useEffect(() => {
+    if (!featuredApi) return;
+    setFeaturedCurrent(featuredApi.selectedScrollSnap());
+    featuredApi.on("select", () => setFeaturedCurrent(featuredApi.selectedScrollSnap()));
+  }, [featuredApi]);
+
+  React.useEffect(() => {
+    if (!popularApi) return;
+    setPopularCurrent(popularApi.selectedScrollSnap());
+    popularApi.on("select", () => setPopularCurrent(popularApi.selectedScrollSnap()));
+  }, [popularApi]);
 
   const categoryIcons: { [key: string]: React.ReactNode } = {
     jerseys: <Shirt className="w-12 h-12" />,
@@ -67,7 +95,7 @@ export default function HomePage() {
           </p>
 
           <Carousel
-            setApi={setApi}
+            setApi={setHeroApi}
             opts={{ align: 'start', loop: true }}
             className="w-full max-w-2xl mx-auto mt-8"
           >
@@ -94,8 +122,8 @@ export default function HomePage() {
             {heroImages.map((_, i) => (
               <button
                 key={i}
-                onClick={() => api?.scrollTo(i)}
-                className={cn('h-2 w-2 rounded-full transition-colors', i === current ? 'bg-white' : 'bg-white/50 hover:bg-white/75')}
+                onClick={() => heroApi?.scrollTo(i)}
+                className={cn('h-2 w-2 rounded-full transition-colors', i === heroCurrent ? 'bg-white' : 'bg-white/50 hover:bg-white/75')}
               />
             ))}
           </div>
@@ -129,6 +157,7 @@ export default function HomePage() {
       <section>
         <h2 className="text-3xl font-bold text-center mb-10 font-headline">Recently Added Products</h2>
         <Carousel
+          setApi={setFeaturedApi}
           opts={{
             align: 'start',
             loop: true,
@@ -137,7 +166,7 @@ export default function HomePage() {
         >
           <CarouselContent>
             {featuredProducts.map((product) => (
-              <CarouselItem key={product.id} className="sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+              <CarouselItem key={product.id} className="basis-1/2 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                 <div className="p-1">
                   <ProductCard product={product} />
                 </div>
@@ -147,11 +176,24 @@ export default function HomePage() {
           <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
           <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
         </Carousel>
+        <div className="py-2 flex justify-center gap-2 mt-2">
+            {Array.from({ length: Math.ceil(featuredProducts.length / slidesToShow) }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => featuredApi?.scrollTo(i)}
+                className={cn('h-2 w-2 rounded-full transition-colors', i === featuredCurrent ? 'bg-white' : 'bg-white/50 hover:bg-white/75')}
+              />
+            ))}
+        </div>
+        <div className="text-center mt-6">
+            <Button variant="outline">View All</Button>
+        </div>
       </section>
 
       <section>
         <h2 className="text-3xl font-bold text-center mb-10 font-headline">Most Popular Products</h2>
         <Carousel
+          setApi={setPopularApi}
           opts={{
             align: 'start',
             loop: true,
@@ -160,7 +202,7 @@ export default function HomePage() {
         >
           <CarouselContent>
             {popularProducts.map((product) => (
-              <CarouselItem key={product.id} className="sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+              <CarouselItem key={product.id} className="basis-1/2 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                 <div className="p-1">
                   <ProductCard product={product} />
                 </div>
@@ -170,6 +212,18 @@ export default function HomePage() {
           <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
           <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
         </Carousel>
+        <div className="py-2 flex justify-center gap-2 mt-2">
+            {Array.from({ length: Math.ceil(popularProducts.length / slidesToShow) }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => popularApi?.scrollTo(i)}
+                className={cn('h-2 w-2 rounded-full transition-colors', i === popularCurrent ? 'bg-white' : 'bg-white/50 hover:bg-white/75')}
+              />
+            ))}
+        </div>
+        <div className="text-center mt-6">
+            <Button variant="outline">View All</Button>
+        </div>
       </section>
     </div>
   );
