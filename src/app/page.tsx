@@ -1,4 +1,7 @@
 
+'use client'
+
+import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Dribbble, Footprints, Shirt, Shield, icons } from 'lucide-react';
@@ -8,15 +11,33 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from '@/components/ui/carousel';
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product-card';
 import { getFeaturedProducts, getCategories } from '@/lib/data';
 import { Icons } from '@/components/icons';
+import { cn } from '@/lib/utils';
 
 export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
   const categories = getCategories();
+  const [api, setApi] = React.useState<CarouselApi>()
+  const [current, setCurrent] = React.useState(0)
+  const [count, setCount] = React.useState(0)
+
+  React.useEffect(() => {
+    if (!api) {
+      return
+    }
+ 
+    setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap())
+ 
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap())
+    })
+  }, [api])
 
   const categoryIcons: { [key: string]: React.ReactNode } = {
     jerseys: <Shirt className="w-12 h-12" />,
@@ -45,6 +66,7 @@ export default function HomePage() {
           </p>
 
           <Carousel
+            setApi={setApi}
             opts={{ align: 'start', loop: true }}
             className="w-full max-w-2xl mx-auto mt-8"
           >
@@ -67,6 +89,15 @@ export default function HomePage() {
             <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 z-10" />
             <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 z-10" />
           </Carousel>
+          <div className="py-2 flex justify-center gap-2 mt-2">
+            {heroImages.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => api?.scrollTo(i)}
+                className={cn('h-2 w-2 rounded-full transition-colors', i === current ? 'bg-white' : 'bg-white/50 hover:bg-white/75')}
+              />
+            ))}
+          </div>
           
           <Button size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90">
             Shop New Arrivals <ArrowRight className="ml-2 h-5 w-5" />
