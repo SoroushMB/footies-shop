@@ -27,8 +27,19 @@ export default function HomePage() {
 
   return (
     <div className="space-y-20">
-      <section className="text-center py-20">
-        <div className="relative">
+      <section className="text-center py-20 relative overflow-hidden rounded-3xl glassmorphism">
+        <div className="absolute inset-0">
+            <Image 
+                src="https://images.unsplash.com/photo-1551958214-e62686150c9e?q=80&w=2070&auto=format&fit=crop"
+                alt="New Arrivals"
+                layout="fill"
+                objectFit="cover"
+                className="opacity-20"
+                data-ai-hint="football player celebration"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
+        </div>
+        <div className="relative z-10">
           <div
             className="absolute inset-0 bg-grid-white/[0.05] [mask-image:linear-gradient(to_bottom,white_50%,transparent_100%)]"
           ></div>

@@ -14,7 +14,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Apex Football Gear',
+  title: 'Footies-Shop',
   description: 'High-quality football gear for athletes and fans.',
 };
 
@@ -38,7 +38,7 @@ export default function RootLayout({
         }}
         data-ai-hint="stadium background"
       >
-        <div className="relative flex min-h-screen flex-col backdrop-blur-lg bg-black/30">
+        <div className="relative flex min-h-screen flex-col backdrop-blur-2xl bg-black/30">
           <CartProvider>
             <SiteHeader />
             <main className="flex-1 container mx-auto px-4 py-8 pt-24">

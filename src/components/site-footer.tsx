@@ -65,7 +65,7 @@ export function SiteFooter() {
       </div>
       <div className="bg-black/20 py-4">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs">&copy; {new Date().getFullYear()} Apex Football Gear. All Rights Reserved.</p>
+          <p className="text-xs">&copy; {new Date().getFullYear()} Footies-Shop. All Rights Reserved.</p>
           <div className="flex gap-2 items-center">
             <Icons.visa className="h-6" />
             <Icons.mastercard className="h-6" />

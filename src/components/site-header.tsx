@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, Search, ShoppingBag } from 'lucide-react';
+import { Menu, Search, ShoppingBag, User } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -20,7 +20,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center space-x-2">
             <span className="font-bold text-2xl font-headline text-white">
-              Apex<span className="text-accent">.</span>
+              Footies-Shop<span className="text-accent">.</span>
             </span>
           </Link>
           <nav className="hidden md:flex gap-6">
@@ -39,6 +39,10 @@ export function SiteHeader() {
         <div className="flex items-center gap-4">
           <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white">
             <Search className="h-5 w-5" />
+          </Button>
+
+          <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white">
+            <User className="h-5 w-5" />
           </Button>
           
           <CartSheet>
@@ -62,7 +66,7 @@ export function SiteHeader() {
             <SheetContent side="left" className="w-full max-w-xs bg-background/95 backdrop-blur-lg border-r border-white/20">
               <div className="flex flex-col gap-6 p-6">
                 <Link href="/" className="flex items-center space-x-2">
-                  <span className="font-bold text-2xl font-headline text-white">Apex<span className="text-accent">.</span></span>
+                  <span className="font-bold text-2xl font-headline text-white">Footies-Shop<span className="text-accent">.</span></span>
                 </Link>
                 <nav className="grid gap-4">
                   {categories.map((category) => (
