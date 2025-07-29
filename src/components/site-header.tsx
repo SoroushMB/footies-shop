@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, Search, ShoppingBag, User, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -19,6 +20,17 @@ export function SiteHeader() {
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
+
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const searchQuery = formData.get('search') as string;
+    if (searchQuery) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setIsSearchActive(false);
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -26,8 +38,8 @@ export function SiteHeader() {
         <div className="container mx-auto flex h-20 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center space-x-2">
-              <Icons.logo className="h-6 w-6 md:h-8 md:w-8 text-white" />
-              <span className="font-bold text-lg md:text-2xl font-headline text-white">
+              <Icons.logo className="h-6 w-6 text-white" />
+              <span className="font-bold text-xl md:text-2xl font-headline text-white">
                 Footies-Shop
               </span>
             </Link>
@@ -117,10 +129,10 @@ export function SiteHeader() {
         isSearchActive ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
       )}>
         <div className="container mx-auto">
-          <div className="relative flex h-20 items-center">
+          <form onSubmit={handleSearch} className="relative flex h-20 items-center">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
-            <Input type="search" placeholder="Search..." className="w-full h-11 pl-12 pr-12 rounded-full bg-background border-border" autoFocus />
-          </div>
+            <Input name="search" type="search" placeholder="Search..." className="w-full h-11 pl-12 pr-12 rounded-full bg-background border-border" autoFocus />
+          </form>
         </div>
       </div>
     </header>
