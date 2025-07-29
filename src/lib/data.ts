@@ -148,6 +148,31 @@ const products: Product[] = [
     brand: 'Brand E',
     sizes: ['8', '9', '10'],
   },
+  // Other Sports
+  {
+    id: '11',
+    slug: 'pro-basketball-jersey',
+    name: 'Pro Basketball Jersey',
+    description: 'A professional basketball jersey with breathable fabric, perfect for the court.',
+    category: 'Other Sports',
+    categorySlug: 'other-sports',
+    price: 89.99,
+    images: ['https://images.unsplash.com/photo-1576481492331-a836a41785d0?q=80&w=600&auto=format&fit=crop'],
+    brand: 'Brand F',
+    sizes: ['S', 'M', 'L', 'XL'],
+  },
+  {
+    id: '12',
+    slug: 'classic-baseball-jersey',
+    name: 'Classic Baseball Jersey',
+    description: 'A classic pinstripe baseball jersey, combining timeless style with modern performance materials.',
+    category: 'Other Sports',
+    categorySlug: 'other-sports',
+    price: 94.99,
+    images: ['https://images.unsplash.com/photo-1616413221903-a4a3b118029c?q=80&w=600&auto=format&fit=crop'],
+    brand: 'Brand G',
+    sizes: ['M', 'L', 'XL', 'XXL'],
+  },
 ];
 
 const categories: Category[] = [
@@ -156,6 +181,7 @@ const categories: Category[] = [
   { id: '3', name: 'Apparel', slug: 'apparel' },
   { id: '4', name: 'Footwear', slug: 'footwear' },
   { id: '5', name: 'Accessories', slug: 'accessories' },
+  { id: '6', name: 'Other Sports', slug: 'other-sports' },
 ];
 
 export function getAllProducts() {

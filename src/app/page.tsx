@@ -1,7 +1,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Dribbble, Footprints, Shirt, Shield } from 'lucide-react';
+import { ArrowRight, Dribbble, Footprints, Shirt, Shield, icons } from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
@@ -24,6 +24,7 @@ export default function HomePage() {
     apparel: <Icons.apparel className="w-12 h-12" />,
     footwear: <Footprints className="w-12 h-12" />,
     accessories: <Icons.gloves className="w-12 h-12" />,
+    'other-sports': <Shield className="w-12 h-12" />,
   };
 
   return (
@@ -43,7 +44,7 @@ export default function HomePage() {
       </section>
 
       <section>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-8">
           {categories.map((category) => {
             const icon = categoryIcons[category.slug];
             return (
