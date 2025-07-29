@@ -15,12 +15,13 @@ import {
 } from '@/components/ui/carousel';
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product-card';
-import { getFeaturedProducts, getCategories } from '@/lib/data';
+import { getFeaturedProducts, getCategories, getPopularProducts } from '@/lib/data';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
 
 export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
+  const popularProducts = getPopularProducts();
   const categories = getCategories();
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
@@ -136,6 +137,29 @@ export default function HomePage() {
         >
           <CarouselContent>
             {featuredProducts.map((product) => (
+              <CarouselItem key={product.id} className="sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                <div className="p-1">
+                  <ProductCard product={product} />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
+          <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
+        </Carousel>
+      </section>
+
+      <section>
+        <h2 className="text-3xl font-bold text-center mb-10 font-headline">Most Popular Products</h2>
+        <Carousel
+          opts={{
+            align: 'start',
+            loop: true,
+          }}
+          className="w-full"
+        >
+          <CarouselContent>
+            {popularProducts.map((product) => (
               <CarouselItem key={product.id} className="sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                 <div className="p-1">
                   <ProductCard product={product} />

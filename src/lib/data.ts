@@ -10,6 +10,7 @@ export type Product = {
   brand: string;
   sizes: string[];
   isFeatured?: boolean;
+  isPopular?: boolean;
 };
 
 export type Category = {
@@ -32,6 +33,7 @@ const products: Product[] = [
     brand: 'Brand A',
     sizes: ['S', 'M', 'L', 'XL'],
     isFeatured: true,
+    isPopular: true,
   },
   {
     id: '2',
@@ -44,6 +46,7 @@ const products: Product[] = [
     images: ['https://images.unsplash.com/photo-1628104239891-764f6b384666?q=80&w=600&auto=format&fit=crop', 'https://images.unsplash.com/photo-1511886921339-7b3b21884b49?q=80&w=600&auto=format&fit=crop'],
     brand: 'Brand A',
     sizes: ['S', 'M', 'L', 'XL'],
+    isPopular: true,
   },
   {
     id: '3',
@@ -70,6 +73,7 @@ const products: Product[] = [
     brand: 'Brand C',
     sizes: ['5'],
     isFeatured: true,
+    isPopular: true,
   },
   {
     id: '5',
@@ -122,6 +126,7 @@ const products: Product[] = [
     brand: 'Brand D',
     sizes: ['8', '9', '10', '11', '12'],
     isFeatured: true,
+    isPopular: true,
   },
   {
     id: '9',
@@ -147,6 +152,7 @@ const products: Product[] = [
     images: ['https://images.unsplash.com/photo-1549464065-126207452d3c?q=80&w=600&auto=format&fit=crop'],
     brand: 'Brand E',
     sizes: ['8', '9', '10'],
+    isPopular: true,
   },
   // Other Sports
   {
@@ -198,6 +204,10 @@ export function getProductsByCategory(categorySlug: string) {
 
 export function getFeaturedProducts() {
   return products.filter((p) => p.isFeatured);
+}
+
+export function getPopularProducts() {
+  return products.filter((p) => p.isPopular);
 }
 
 export function getCategories() {
