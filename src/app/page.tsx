@@ -49,7 +49,7 @@ export default function HomePage() {
             const icon = categoryIcons[category.slug];
             return (
               <Link href={`/category/${category.slug}`} key={category.id}>
-                <div className="group relative aspect-square md:aspect-[4/3] flex flex-col items-center justify-center p-6 rounded-2xl glassmorphism transition-all duration-300 hover:bg-white/20 hover:border-white/40 hover:-translate-y-1">
+                <div className="group relative aspect-square flex flex-col items-center justify-center p-6 rounded-2xl glassmorphism transition-all duration-300 hover:bg-white/20 hover:border-white/40 hover:-translate-y-1">
                   <div className="text-foreground transition-transform duration-300 group-hover:scale-110 w-12 h-12 flex items-center justify-center">
                     {icon}
                   </div>
