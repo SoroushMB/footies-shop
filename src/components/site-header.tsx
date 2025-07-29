@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { getCategories } from '@/lib/data';
 import { useCart } from '@/contexts/cart-provider';
 import { CartSheet } from './cart-sheet';
+import { Separator } from './ui/separator';
 
 export function SiteHeader() {
   const categories = getCategories();
@@ -64,11 +65,13 @@ export function SiteHeader() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-full max-w-xs bg-background/95 backdrop-blur-lg border-r border-white/20">
-              <div className="flex flex-col gap-6 p-6">
-                <Link href="/" className="flex items-center space-x-2">
-                  <span className="font-bold text-2xl font-headline text-white">Footies-Shop<span className="text-accent">.</span></span>
-                </Link>
-                <nav className="grid gap-4">
+              <div className="flex flex-col h-full">
+                <div className="p-6">
+                    <Link href="/" className="flex items-center space-x-2">
+                    <span className="font-bold text-2xl font-headline text-white">Footies-Shop<span className="text-accent">.</span></span>
+                    </Link>
+                </div>
+                <nav className="grid gap-4 p-6 pt-0">
                   {categories.map((category) => (
                     <Link
                       key={category.id}
@@ -79,6 +82,18 @@ export function SiteHeader() {
                     </Link>
                   ))}
                 </nav>
+                <div className="mt-auto p-6 border-t border-white/10">
+                    <div className="flex flex-col gap-4">
+                         <Button variant="outline" className="w-full justify-start gap-2">
+                            <Search className="h-5 w-5" />
+                            Search
+                        </Button>
+                        <Button variant="outline" className="w-full justify-start gap-2">
+                            <User className="h-5 w-5" />
+                            Account
+                        </Button>
+                    </div>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
