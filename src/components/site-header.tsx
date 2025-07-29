@@ -18,6 +18,7 @@ export function SiteHeader() {
   const { cart } = useCart();
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <>
@@ -76,7 +77,7 @@ export function SiteHeader() {
               </Button>
             </CartSheet>
 
-            <Sheet>
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden text-white hover:bg-white/10 hover:text-white">
                   <Menu className="h-6 w-6" />
@@ -97,6 +98,7 @@ export function SiteHeader() {
                         key={category.id}
                         href={`/category/${category.slug}`}
                         className="text-lg font-medium text-neutral-300 transition-colors hover:text-white"
+                        onClick={() => setIsMobileMenuOpen(false)}
                       >
                         {category.name}
                       </Link>
@@ -104,7 +106,10 @@ export function SiteHeader() {
                   </nav>
                   <div className="mt-auto p-6 border-t border-white/10">
                       <div className="flex flex-col gap-4">
-                           <Button variant="outline" className="w-full justify-start gap-2">
+                           <Button variant="outline" className="w-full justify-start gap-2" onClick={() => {
+                             setIsMobileMenuOpen(false);
+                             setIsSearchActive(true);
+                           }}>
                               <Search className="h-5 w-5" />
                               Search
                           </Button>
