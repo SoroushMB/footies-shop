@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Facebook, Instagram, Lock, ShieldCheck, Truck, Twitter, Undo2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -11,7 +12,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 text-center md:text-left border-b border-white/10">
           <FeatureItem icon={<Truck className="h-8 w-8 text-accent" />} text="Free & Fast Shipping" />
           <FeatureItem icon={<Undo2 className="h-8 w-8 text-accent" />} text="Easy Returns" />
-          <FeatureItem icon={<ShieldCheck className="h-8 w-8 text-accent" />} text="Official Products" />
+          <FeatureItem icon={<ShieldCheck className="h-8 w-8 text-accent" />} text="Great Quality" />
           <FeatureItem icon={<Lock className="h-8 w-8 text-accent" />} text="Secure Payments" />
         </div>
 
