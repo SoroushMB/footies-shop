@@ -18,12 +18,12 @@ export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
   const categories = getCategories();
 
-  const categoryIcons: { [key: string]: React.ReactNode | string } = {
+  const categoryIcons: { [key: string]: React.ReactNode } = {
     jerseys: <Shirt className="w-12 h-12" />,
     footballs: <Dribbble className="w-12 h-12" />,
     apparel: <Icons.apparel className="w-12 h-12" />,
     footwear: <Footprints className="w-12 h-12" />,
-    accessories: 'https://images.unsplash.com/photo-1549464065-126207452d3c?q=80&w=600&auto=format&fit=crop',
+    accessories: <Icons.gloves className="w-12 h-12" />,
   };
 
   return (
@@ -45,23 +45,12 @@ export default function HomePage() {
       <section>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8">
           {categories.map((category) => {
-            const iconOrImage = categoryIcons[category.slug];
+            const icon = categoryIcons[category.slug];
             return (
               <Link href={`/category/${category.slug}`} key={category.id}>
                 <div className="group relative aspect-square md:aspect-[4/3] flex flex-col items-center justify-center p-6 rounded-2xl glassmorphism transition-all duration-300 hover:bg-white/20 hover:border-white/40 hover:-translate-y-1">
                   <div className="text-foreground transition-transform duration-300 group-hover:scale-110 w-12 h-12 flex items-center justify-center">
-                    {typeof iconOrImage === 'string' ? (
-                       <Image
-                        src={iconOrImage}
-                        alt={category.name}
-                        width={48}
-                        height={48}
-                        className="object-contain"
-                        data-ai-hint="goalkeeper gloves"
-                      />
-                    ) : (
-                      iconOrImage
-                    )}
+                    {icon}
                   </div>
                   <h3 className="mt-4 text-center font-semibold text-lg">{category.name}</h3>
                 </div>
