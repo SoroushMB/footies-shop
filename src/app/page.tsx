@@ -44,6 +44,8 @@ export default function HomePage() {
       </section>
 
       <section>
+        <h2 className="text-3xl font-bold text-center font-headline">Shop by Category</h2>
+        <p className="mt-2 text-lg text-center text-neutral-300 mb-10">Find exactly what you need for your game.</p>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-8">
           {categories.map((category) => {
             const icon = categoryIcons[category.slug];
