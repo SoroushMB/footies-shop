@@ -75,7 +75,6 @@ export function SiteHeader() {
                 <div className="flex flex-col h-full">
                   <div className="p-6">
                       <Link href="/" className="flex items-center space-x-2">
-                        <Icons.logo className="h-8 w-8 text-white hidden md:block" />
                         <span className="font-bold text-xl md:text-2xl font-headline text-white">Footies-Shop</span>
                       </Link>
                   </div>
