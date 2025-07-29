@@ -31,7 +31,7 @@ export default function RootLayout({
           poppins.variable
         )}
         style={{
-          backgroundImage: `url('https://placehold.co/1920x1080.png?text=')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1920&auto=format&fit=crop')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
