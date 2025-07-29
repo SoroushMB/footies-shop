@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -38,8 +39,8 @@ export function SiteHeader() {
         <div className="container mx-auto flex h-20 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center space-x-2">
-              <Icons.logo className="h-6 w-6 text-white" />
-              <span className="font-bold text-xl md:text-2xl font-headline text-white">
+              <Icons.logo className="h-6 w-6 text-white hidden md:block" />
+              <span className="font-bold text-lg md:text-2xl font-headline text-white">
                 Footies-Shop
               </span>
             </Link>
@@ -126,7 +127,7 @@ export function SiteHeader() {
       </div>
       <div className={cn(
         "glassmorphism transition-[transform,opacity] duration-300",
-        isSearchActive ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+        isSearchActive ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
       )}>
         <div className="container mx-auto">
           <form onSubmit={handleSearch} className="relative flex h-20 items-center">
