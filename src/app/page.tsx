@@ -24,7 +24,7 @@ export default function HomePage() {
     apparel: <Icons.apparel className="w-12 h-12" />,
     footwear: <Footprints className="w-12 h-12" />,
     accessories: <Icons.gloves className="w-12 h-12" />,
-    'other-sports': <Shield className="w-12 h-12" />,
+    'other-sports': <Icons.americanFootball className="w-12 h-12" />,
   };
 
   return (
