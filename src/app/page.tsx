@@ -143,8 +143,8 @@ export default function HomePage() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 z-10 hidden md:flex" />
-          <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 z-10 hidden md:flex" />
+          <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
+          <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
         </Carousel>
       </section>
     </div>
