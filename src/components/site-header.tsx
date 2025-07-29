@@ -21,9 +21,9 @@ export function SiteHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <>
-      <header className="fixed top-0 left-0 right-0 z-50 glassmorphism">
-        <div className="container mx-auto flex h-20 items-center justify-between transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <div className={cn("glassmorphism transition-transform duration-300", isSearchActive && 'md:translate-y-0 -translate-y-full')}>
+        <div className="container mx-auto flex h-20 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center space-x-2">
               <Icons.logo className="h-8 w-8 text-white" />
@@ -31,10 +31,7 @@ export function SiteHeader() {
                 Footies-Shop
               </span>
             </Link>
-            <nav className={cn(
-              "hidden md:flex gap-6 transition-opacity duration-300",
-              isSearchActive && "opacity-0 pointer-events-none"
-            )}>
+            <nav className="hidden md:flex gap-6">
               {categories.map((category) => (
                 <Link
                   key={category.id}
@@ -47,22 +44,9 @@ export function SiteHeader() {
             </nav>
           </div>
           
-          <div className={cn(
-            "absolute left-1/2 -translate-x-1/2 w-full max-w-md px-4 transition-all duration-300",
-            isSearchActive ? "opacity-100 z-10" : "opacity-0 -z-10",
-          )}>
-             <div className="w-full relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
-              <Input type="search" placeholder="Search..." className="w-full h-11 pl-12 pr-12 rounded-full bg-white/10 border-white/20" autoFocus />
-               <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 hover:text-white h-9 w-9" onClick={() => setIsSearchActive(false)}>
-                <X className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white" onClick={() => setIsSearchActive(!isSearchActive)}>
-              {isSearchActive ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white" onClick={() => setIsSearchActive(true)}>
+              <Search className="h-5 w-5" />
             </Button>
 
             <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white">
@@ -127,7 +111,21 @@ export function SiteHeader() {
             </Sheet>
           </div>
         </div>
-      </header>
-    </>
+      </div>
+      <div className={cn(
+        "absolute top-0 left-0 right-0 w-full transition-transform duration-300",
+        isSearchActive ? "translate-y-0" : "-translate-y-full"
+      )}>
+        <div className="container mx-auto">
+          <div className="relative flex h-20 items-center">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+            <Input type="search" placeholder="Search..." className="w-full h-11 pl-12 pr-12 rounded-full bg-background border-border" autoFocus />
+            <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 hover:text-white h-9 w-9" onClick={() => setIsSearchActive(false)}>
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }
