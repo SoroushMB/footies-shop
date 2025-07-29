@@ -29,13 +29,6 @@ export default function HomePage() {
   return (
     <div className="space-y-20">
       <section className="text-center py-20 relative">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1551854321-1432edd90a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzb2NjZXIlMjBqZXJzZXl8ZW58MHx8fHwxNzUzNzY3MzYxfDA&ixlib=rb-4.1.0&q=80&w=1080')`,
-          }}
-          data-ai-hint="football player celebration"
-        />
         <div className="relative z-10">
           <h1 className="text-5xl md:text-7xl font-bold font-headline bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50 tracking-tight">
             Elevate Your Game
