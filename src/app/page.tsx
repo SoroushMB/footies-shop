@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Dribbble, Footprints, Shirt, Shield } from 'lucide-react';
@@ -31,7 +32,7 @@ export default function HomePage() {
         <div className="relative z-10 flex flex-col items-center">
             <div className="relative w-full max-w-lg h-64 mb-8">
                 <Image 
-                    src="https://images.unsplash.com/photo-1551958214-e62686150c9e?q=80&w=1200&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1551854321-1432edd90a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzb2NjZXIlMjBqZXJzZXl8ZW58MHx8fHwxNzUzNzY3MzYxfDA&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="New Arrivals"
                     layout="fill"
                     objectFit="cover"
