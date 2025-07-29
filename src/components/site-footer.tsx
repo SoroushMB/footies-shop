@@ -11,8 +11,8 @@ export function SiteFooter() {
       <div className="container mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 text-center md:text-left border-b border-white/10">
           <FeatureItem icon={<Star className="h-8 w-8 text-accent" />} text="4.7 Star Review" />
-          <FeatureItem icon={<Undo2 className="h-8 w-8 text-accent" />} text="Easy Returns" />
-          <FeatureItem icon={<ThumbsUp className="h-8 w-8 text-accent" />} text="50,000+ Happy Customers" />
+          <FeatureItem icon={<ThumbsUp className="h-8 w-8 text-accent" />} text="Great Customer Service" />
+          <FeatureItem icon={<ShieldCheck className="h-8 w-8 text-accent" />} text="Great Quality" />
           <FeatureItem icon={<Lock className="h-8 w-8 text-accent" />} text="Secure Payments" />
         </div>
 
