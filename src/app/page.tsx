@@ -28,7 +28,7 @@ export default function HomePage() {
 
   return (
     <div className="space-y-20">
-      <section className="text-center py-20 relative overflow-hidden rounded-3xl glassmorphism">
+      <section className="text-center py-20 relative">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{
