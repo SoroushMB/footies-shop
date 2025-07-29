@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -49,18 +48,20 @@ export function SiteHeader() {
           </div>
           
           <div className={cn(
-            "flex-1 mx-8 items-center justify-center transition-opacity duration-300",
-            isSearchActive ? "flex opacity-100" : "hidden opacity-0 pointer-events-none",
-            "md:flex" // ensure it is flex on md and up
+            "absolute left-1/2 -translate-x-1/2 w-full max-w-md px-4 transition-all duration-300",
+            isSearchActive ? "opacity-100 z-10" : "opacity-0 -z-10",
           )}>
-             <div className="w-full max-w-md relative">
+             <div className="w-full relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
-              <Input type="search" placeholder="Search..." className="w-full h-11 pl-12 pr-4 rounded-full bg-white/10 border-white/20" autoFocus />
+              <Input type="search" placeholder="Search..." className="w-full h-11 pl-12 pr-12 rounded-full bg-white/10 border-white/20" autoFocus />
+               <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 hover:text-white h-9 w-9" onClick={() => setIsSearchActive(false)}>
+                <X className="h-5 w-5" />
+              </Button>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white" onClick={() => setIsSearchActive(!isSearchActive)}>
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white" onClick={() => setIsSearchActive(!isSearchActive)}>
               {isSearchActive ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
             </Button>
 
@@ -127,7 +128,6 @@ export function SiteHeader() {
           </div>
         </div>
       </header>
-      {isSearchActive && <div className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm md:hidden" onClick={() => setIsSearchActive(false)} />}
     </>
   );
 }
