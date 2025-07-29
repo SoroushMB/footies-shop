@@ -27,7 +27,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center space-x-2">
               <Icons.logo className="h-8 w-8 text-white hidden md:block" />
-              <span className="font-bold text-2xl font-headline text-white">
+              <span className="font-bold text-xl md:text-2xl font-headline text-white">
                 Footies-Shop
               </span>
             </Link>
@@ -76,7 +76,7 @@ export function SiteHeader() {
                   <div className="p-6">
                       <Link href="/" className="flex items-center space-x-2">
                         <Icons.logo className="h-8 w-8 text-white hidden md:block" />
-                        <span className="font-bold text-2xl font-headline text-white">Footies-Shop</span>
+                        <span className="font-bold text-xl md:text-2xl font-headline text-white">Footies-Shop</span>
                       </Link>
                   </div>
                   <nav className="grid gap-4 p-6 pt-0">
@@ -113,7 +113,7 @@ export function SiteHeader() {
         </div>
       </div>
       <div className={cn(
-        "absolute top-0 left-0 right-0 w-full transition-transform duration-300 md:hidden",
+        "fixed top-0 left-0 right-0 w-full glassmorphism transition-transform duration-300 md:hidden",
         isSearchActive ? "translate-y-0" : "-translate-y-full"
       )}>
         <div className="container mx-auto">
