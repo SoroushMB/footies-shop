@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -48,8 +49,9 @@ export function SiteHeader() {
           </div>
           
           <div className={cn(
-            "hidden md:flex flex-1 mx-8 items-center justify-center transition-opacity duration-300",
-            isSearchActive ? "opacity-100" : "opacity-0 pointer-events-none"
+            "flex-1 mx-8 items-center justify-center transition-opacity duration-300",
+            isSearchActive ? "flex opacity-100" : "hidden opacity-0 pointer-events-none",
+            "md:flex" // ensure it is flex on md and up
           )}>
              <div className="w-full max-w-md relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
@@ -108,7 +110,7 @@ export function SiteHeader() {
                       <div className="flex flex-col gap-4">
                            <Button variant="outline" className="w-full justify-start gap-2" onClick={() => {
                              setIsMobileMenuOpen(false);
-                             setIsSearchActive(true);
+                             setTimeout(() => setIsSearchActive(true), 100);
                            }}>
                               <Search className="h-5 w-5" />
                               Search
@@ -125,7 +127,7 @@ export function SiteHeader() {
           </div>
         </div>
       </header>
-      {isSearchActive && <div className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm" onClick={() => setIsSearchActive(false)} />}
+      {isSearchActive && <div className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm md:hidden" onClick={() => setIsSearchActive(false)} />}
     </>
   );
 }
