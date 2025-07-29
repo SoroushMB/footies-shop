@@ -26,12 +26,12 @@ export function SiteHeader() {
         <div className="container mx-auto flex h-20 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center space-x-2">
-              <Icons.logo className="h-8 w-8 text-white" />
+              <Icons.logo className="h-8 w-8 text-white hidden md:block" />
               <span className="font-bold text-2xl font-headline text-white">
                 Footies-Shop
               </span>
             </Link>
-            <nav className="hidden md:flex gap-6">
+            <nav className={cn('hidden md:flex gap-6', { 'opacity-0': isSearchActive })}>
               {categories.map((category) => (
                 <Link
                   key={category.id}
@@ -75,7 +75,7 @@ export function SiteHeader() {
                 <div className="flex flex-col h-full">
                   <div className="p-6">
                       <Link href="/" className="flex items-center space-x-2">
-                        <Icons.logo className="h-8 w-8 text-white" />
+                        <Icons.logo className="h-8 w-8 text-white hidden md:block" />
                         <span className="font-bold text-2xl font-headline text-white">Footies-Shop</span>
                       </Link>
                   </div>
@@ -113,11 +113,25 @@ export function SiteHeader() {
         </div>
       </div>
       <div className={cn(
-        "absolute top-0 left-0 right-0 w-full transition-transform duration-300",
+        "absolute top-0 left-0 right-0 w-full transition-transform duration-300 md:hidden",
         isSearchActive ? "translate-y-0" : "-translate-y-full"
       )}>
         <div className="container mx-auto">
           <div className="relative flex h-20 items-center">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+            <Input type="search" placeholder="Search..." className="w-full h-11 pl-12 pr-12 rounded-full bg-background border-border" autoFocus />
+            <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 hover:text-white h-9 w-9" onClick={() => setIsSearchActive(false)}>
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div className={cn(
+        "absolute top-0 left-0 right-0 w-full transition-all duration-300 hidden md:block",
+        isSearchActive ? "translate-y-0" : "-translate-y-full opacity-0"
+      )}>
+        <div className="container mx-auto">
+          <div className="relative flex h-20 items-center justify-center">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
             <Input type="search" placeholder="Search..." className="w-full h-11 pl-12 pr-12 rounded-full bg-background border-border" autoFocus />
             <Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 hover:text-white h-9 w-9" onClick={() => setIsSearchActive(false)}>
