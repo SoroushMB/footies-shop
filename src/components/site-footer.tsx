@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import { Facebook, Instagram, Lock, ShieldCheck, Truck, Twitter, Undo2 } from 'lucide-react';
+import { Facebook, Instagram, Lock, ShieldCheck, Star, ThumbsUp, Truck, Twitter, Undo2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Icons } from '@/components/icons';
@@ -10,9 +10,9 @@ export function SiteFooter() {
     <footer className="mt-auto w-full border-t border-white/10 text-sm text-neutral-300">
       <div className="container mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 text-center md:text-left border-b border-white/10">
-          <FeatureItem icon={<Truck className="h-8 w-8 text-accent" />} text="Free & Fast Shipping" />
+          <FeatureItem icon={<Star className="h-8 w-8 text-accent" />} text="4.7 Star Review" />
           <FeatureItem icon={<Undo2 className="h-8 w-8 text-accent" />} text="Easy Returns" />
-          <FeatureItem icon={<ShieldCheck className="h-8 w-8 text-accent" />} text="Great Quality" />
+          <FeatureItem icon={<ThumbsUp className="h-8 w-8 text-accent" />} text="50,000+ Happy Customers" />
           <FeatureItem icon={<Lock className="h-8 w-8 text-accent" />} text="Secure Payments" />
         </div>
 
