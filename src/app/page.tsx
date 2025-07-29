@@ -37,9 +37,10 @@ export default function HomePage() {
 
   React.useEffect(() => {
     function updateSlidesToShow() {
-      if (window.innerWidth < 640) {
+      const screenWidth = window.innerWidth;
+      if (screenWidth < 640) {
         setSlidesToShow(2);
-      } else if (window.innerWidth < 1024) {
+      } else if (screenWidth < 1024) {
         setSlidesToShow(3);
       } else {
         setSlidesToShow(4);
@@ -106,7 +107,7 @@ export default function HomePage() {
                     <Image
                       src={image.src}
                       alt={image.alt}
-                      layout="fill"
+                      fill
                       objectFit="cover"
                       className="rounded-xl"
                       data-ai-hint={image.hint}
@@ -137,7 +138,7 @@ export default function HomePage() {
       <section>
         <h2 className="text-3xl font-bold text-center font-headline">Shop by Category</h2>
         <p className="mt-2 text-lg text-center text-neutral-300 mb-10">Find exactly what you need for your game.</p>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-8 grid-rows-1">
           {categories.map((category) => {
             const icon = categoryIcons[category.slug];
             return (
