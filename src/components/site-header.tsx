@@ -119,15 +119,7 @@ export function SiteHeader() {
       <div className="hidden md:block glassmorphism border-t border-white/10">
           <div className="container mx-auto">
             <nav className="flex h-12 items-center justify-center gap-8">
-              {categories.map((category) => (
-                <Link
-                  key={category.id}
-                  href={`/category/${category.slug}`}
-                  className="text-sm font-medium text-neutral-300 transition-colors hover:text-white"
-                >
-                  {category.name}
-                </Link>
-              ))}
+              {/* Categories removed from here */}
             </nav>
           </div>
       </div>
