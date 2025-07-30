@@ -42,8 +42,8 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
           <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
             <Link href="/account#signup">Register Now</Link>
           </Button>
-           <Button variant="ghost" onClick={() => onOpenChange(false)}>
-            Continue browsing
+           <Button variant="ghost" onClick={() => onOpenChange(false)} className="w-full">
+            Ignore
           </Button>
         </DialogFooter>
       </DialogContent>
