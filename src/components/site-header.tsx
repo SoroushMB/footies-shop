@@ -51,7 +51,7 @@ export function SiteHeader() {
 
   const marqueeTexts = user
     ? baseMarqueeTexts
-    : ['💸 Register and get 10% off EVERY order!', ...baseMarqueeTexts];
+    : ['💸 Register or use your account to get 10% off EVERY order!', ...baseMarqueeTexts];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -59,7 +59,7 @@ export function SiteHeader() {
         <div className="container mx-auto flex h-20 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center space-x-2">
-              <Icons.logo className="hidden md:block h-6 w-6 text-white" />
+              <Icons.logo className="h-8 w-8 text-white" />
               <span className="font-bold text-lg md:text-2xl font-headline text-white">
                 Footies-Shop
               </span>
