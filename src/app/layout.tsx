@@ -33,14 +33,14 @@ export default function RootLayout({
           'min-h-screen bg-background font-sans antialiased',
           poppins.variable
         )}
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1546608235-3310a2494cdf?q=80&w=1920&auto=format&fit=crop')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-        }}
-        data-ai-hint="stadium background"
       >
+        <div
+          className="fixed inset-0 z-[-1] bg-cover bg-center"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1546608235-3310a2494cdf?q=80&w=1920&auto=format&fit=crop')`,
+          }}
+          data-ai-hint="stadium background"
+        />
         <div className="relative flex min-h-screen flex-col backdrop-blur-lg bg-black/50">
           <AuthProvider>
             <CartProvider>
@@ -50,10 +50,10 @@ export default function RootLayout({
               </main>
               <SiteFooter />
               <Toaster />
-              <ChatWidget />
             </CartProvider>
           </AuthProvider>
         </div>
+        <ChatWidget />
       </body>
     </html>
   );
