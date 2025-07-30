@@ -44,10 +44,10 @@ export function SiteFooter() {
             { name: 'Accessories', href: '/category/accessories' },
           ]} />
           <FooterLinkColumn title="Information" links={[
-            { name: 'About Us', href: '#' },
-            { name: 'FAQ', href: '#' },
-            { name: 'Shipping & Returns', href: '#' },
-            { name: 'Contact Us', href: '#' },
+            { name: 'About Us', href: '/about' },
+            { name: 'FAQ', href: '/faq' },
+            { name: 'Shipping & Returns', href: '/shipping-returns' },
+            { name: 'Contact Us', href: '/contact' },
           ]} />
           <FooterLinkColumn title="Legal" links={[
             { name: 'Terms of Service', href: '#' },
