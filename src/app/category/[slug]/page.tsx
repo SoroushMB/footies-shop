@@ -23,7 +23,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
   const filters = category.filters || {};
 
   return (
-    <div className="grid md:grid-cols-4 gap-8 mt-32">
+    <div className="grid md:grid-cols-4 gap-8 mt-40">
       <div className="md:col-span-1">
         <Card className="p-6 rounded-2xl glassmorphism sticky top-24">
           <h2 className="text-2xl font-bold mb-6 font-headline">{category.name}</h2>
