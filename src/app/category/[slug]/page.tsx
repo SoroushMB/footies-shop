@@ -20,8 +20,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  const brands = [...new Set(products.map((p) => p.brand))];
-  const sizes = [...new Set(products.flatMap((p) => p.sizes))];
+  const brands = ['Nike', 'Puma', 'Adidas', 'Other Brands'];
 
   return (
     <div className="grid md:grid-cols-4 gap-8">
@@ -52,18 +51,6 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
                   <div key={brand} className="flex items-center space-x-2">
                     <Checkbox id={`brand-${brand}`} />
                     <Label htmlFor={`brand-${brand}`} className="text-neutral-300">{brand}</Label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-3 text-white">Size</h3>
-              <div className="space-y-2">
-                {sizes.map((size) => (
-                  <div key={size} className="flex items-center space-x-2">
-                    <Checkbox id={`size-${size}`} />
-                    <Label htmlFor={`size-${size}`} className="text-neutral-300">{size}</Label>
                   </div>
                 ))}
               </div>
