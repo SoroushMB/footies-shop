@@ -19,10 +19,8 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
   if (!category) {
     notFound();
   }
-
-  const brands = ['Nike', 'Puma', 'Adidas', 'Other Brands'];
-  const teams = ['FC Barcelona', 'Real Madrid', 'Manchester United'];
-  const nationalTeams = ['Brazil', 'Argentina', 'Germany'];
+  
+  const filters = category.filters || {};
 
   return (
     <div className="grid md:grid-cols-4 gap-8">
@@ -46,46 +44,47 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
               </Select>
             </div>
 
-            <div>
-              <h3 className="font-semibold mb-3 text-white">Teams</h3>
-                <Select>
-                    <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a Team" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {teams.map((team) => (
-                            <SelectItem key={team} value={team}>{team}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-3 text-white">National Teams</h3>
-                <Select>
-                    <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a Team" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {nationalTeams.map((team) => (
-                            <SelectItem key={team} value={team}>{team}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold mb-3 text-white">Brand</h3>
-              <div className="space-y-2">
-                {brands.map((brand) => (
-                  <div key={brand} className="flex items-center space-x-2">
-                    <Checkbox id={`brand-${brand}`} />
-                    <Label htmlFor={`brand-${brand}`} className="text-neutral-300">{brand}</Label>
-
-                  </div>
-                ))}
+            {filters.teams && (
+              <div>
+                <h3 className="font-semibold mb-3 text-white">Teams</h3>
+                <div className="space-y-2">
+                  {filters.teams.map((team) => (
+                    <div key={team} className="flex items-center space-x-2">
+                      <Checkbox id={`team-${team}`} />
+                      <Label htmlFor={`team-${team}`} className="text-neutral-300">{team}</Label>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
+            
+            {filters.nationalTeams && (
+              <div>
+                <h3 className="font-semibold mb-3 text-white">National Teams</h3>
+                <div className="space-y-2">
+                  {filters.nationalTeams.map((team) => (
+                    <div key={team} className="flex items-center space-x-2">
+                      <Checkbox id={`national-team-${team}`} />
+                      <Label htmlFor={`national-team-${team}`} className="text-neutral-300">{team}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {filters.brands && (
+              <div>
+                <h3 className="font-semibold mb-3 text-white">Brand</h3>
+                <div className="space-y-2">
+                  {filters.brands.map((brand) => (
+                    <div key={brand} className="flex items-center space-x-2">
+                      <Checkbox id={`brand-${brand}`} />
+                      <Label htmlFor={`brand-${brand}`} className="text-neutral-300">{brand}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </Card>
       </div>

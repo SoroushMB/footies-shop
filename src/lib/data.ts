@@ -17,6 +17,11 @@ export type Category = {
   id: string;
   name: string;
   slug: string;
+  filters?: {
+    brands?: string[];
+    teams?: string[];
+    nationalTeams?: string[];
+  }
 };
 
 const products: Product[] = [
@@ -30,7 +35,7 @@ const products: Product[] = [
     categorySlug: 'jerseys',
     price: 99.99,
     images: ['https://images.unsplash.com/photo-1552064137-59c1b1856331?q=80&w=600&auto=format&fit=crop', 'https://images.unsplash.com/photo-1599408223485-6858a74bee57?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand A',
+    brand: 'Nike',
     sizes: ['S', 'M', 'L', 'XL'],
     isFeatured: true,
     isPopular: true,
@@ -44,7 +49,7 @@ const products: Product[] = [
     categorySlug: 'jerseys',
     price: 99.99,
     images: ['https://images.unsplash.com/photo-1628104239891-764f6b384666?q=80&w=600&auto=format&fit=crop', 'https://images.unsplash.com/photo-1511886921339-7b3b21884b49?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand A',
+    brand: 'Adidas',
     sizes: ['S', 'M', 'L', 'XL'],
     isPopular: true,
   },
@@ -57,7 +62,7 @@ const products: Product[] = [
     categorySlug: 'jerseys',
     price: 109.99,
     images: ['https://images.unsplash.com/photo-1588861096303-3486532432d4?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand B',
+    brand: 'Puma',
     sizes: ['S', 'M', 'L', 'XL'],
   },
   // Footballs
@@ -70,7 +75,7 @@ const products: Product[] = [
     categorySlug: 'footballs',
     price: 149.99,
     images: ['https://images.unsplash.com/photo-1521413693433-1443ab790331?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand C',
+    brand: 'Adidas',
     sizes: ['5'],
     isFeatured: true,
     isPopular: true,
@@ -84,7 +89,7 @@ const products: Product[] = [
     categorySlug: 'footballs',
     price: 39.99,
     images: ['https://images.unsplash.com/photo-1542632230-9a22ac6e6c14?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand C',
+    brand: 'Nike',
     sizes: ['4', '5'],
   },
   // Apparel
@@ -97,7 +102,7 @@ const products: Product[] = [
     categorySlug: 'apparel',
     price: 129.99,
     images: ['https://images.unsplash.com/photo-1585232104595-3c124bad365e?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand A',
+    brand: 'Nike',
     sizes: ['S', 'M', 'L'],
   },
   {
@@ -109,7 +114,7 @@ const products: Product[] = [
     categorySlug: 'apparel',
     price: 79.99,
     images: ['https://images.unsplash.com/photo-1515735162817-109a0b8e8a75?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand B',
+    brand: 'Adidas',
     sizes: ['M', 'L', 'XL'],
     isFeatured: true,
   },
@@ -123,7 +128,7 @@ const products: Product[] = [
     categorySlug: 'footwear',
     price: 249.99,
     images: ['https://images.unsplash.com/photo-1526279979402-99a384074a15?q=80&w=600&auto=format&fit=crop', 'https://images.unsplash.com/photo-1608229452294-252f4019b841?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand D',
+    brand: 'Nike',
     sizes: ['8', '9', '10', '11', '12'],
     isFeatured: true,
     isPopular: true,
@@ -137,7 +142,7 @@ const products: Product[] = [
     categorySlug: 'footwear',
     price: 119.99,
     images: ['https://images.unsplash.com/photo-1627914946322-9598a3949987?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand D',
+    brand: 'Puma',
     sizes: ['8', '9', '10', '11'],
   },
   // Accessories
@@ -150,7 +155,7 @@ const products: Product[] = [
     categorySlug: 'accessories',
     price: 89.99,
     images: ['https://images.unsplash.com/photo-1549464065-126207452d3c?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand E',
+    brand: 'Other Brands',
     sizes: ['8', '9', '10'],
     isPopular: true,
   },
@@ -164,7 +169,7 @@ const products: Product[] = [
     categorySlug: 'other-sports',
     price: 89.99,
     images: ['https://images.unsplash.com/photo-1576481492331-a836a41785d0?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand F',
+    brand: 'Nike',
     sizes: ['S', 'M', 'L', 'XL'],
   },
   {
@@ -176,18 +181,63 @@ const products: Product[] = [
     categorySlug: 'other-sports',
     price: 94.99,
     images: ['https://images.unsplash.com/photo-1616413221903-a4a3b118029c?q=80&w=600&auto=format&fit=crop'],
-    brand: 'Brand G',
+    brand: 'Other Brands',
     sizes: ['M', 'L', 'XL', 'XXL'],
   },
 ];
 
 const categories: Category[] = [
-  { id: '1', name: 'Jerseys', slug: 'jerseys' },
-  { id: '2', name: 'Footballs', slug: 'footballs' },
-  { id: '3', name: 'Apparel', slug: 'apparel' },
-  { id: '4', name: 'Footwear', slug: 'footwear' },
-  { id: '5', name: 'Accessories', slug: 'accessories' },
-  { id: '6', name: 'Other Sports', slug: 'other-sports' },
+  { 
+    id: '1', 
+    name: 'Jerseys', 
+    slug: 'jerseys',
+    filters: {
+      brands: ['Nike', 'Adidas', 'Puma', 'Other Brands'],
+      teams: ['FC Barcelona', 'Real Madrid', 'Manchester United'],
+      nationalTeams: ['Brazil', 'Argentina', 'Germany'],
+    }
+  },
+  { 
+    id: '2', 
+    name: 'Footballs', 
+    slug: 'footballs',
+    filters: {
+      brands: ['Nike', 'Adidas'],
+    }
+  },
+  { 
+    id: '3', 
+    name: 'Apparel', 
+    slug: 'apparel',
+    filters: {
+      brands: ['Nike', 'Adidas'],
+    }
+  },
+  { 
+    id: '4', 
+    name: 'Footwear', 
+    slug: 'footwear',
+    filters: {
+      brands: ['Nike', 'Puma', 'Adidas'],
+    }
+  },
+  { 
+    id: '5', 
+    name: 'Accessories', 
+    slug: 'accessories',
+    filters: {
+      brands: ['Other Brands'],
+    }
+  },
+  { 
+    id: '6', 
+    name: 'Other Sports', 
+    slug: 'other-sports',
+    filters: {
+      brands: ['Nike', 'Other Brands'],
+      teams: ['Lakers', 'Yankees']
+    }
+  },
 ];
 
 export function getAllProducts() {
