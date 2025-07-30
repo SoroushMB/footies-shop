@@ -202,7 +202,7 @@ const categories: Category[] = [
     name: 'Footballs', 
     slug: 'footballs',
     filters: {
-      brands: ['Nike', 'Adidas'],
+      brands: ['Nike', 'Adidas', 'Other Brands'],
     }
   },
   { 
@@ -210,7 +210,7 @@ const categories: Category[] = [
     name: 'Apparel', 
     slug: 'apparel',
     filters: {
-      brands: ['Nike', 'Adidas'],
+      brands: ['Nike', 'Adidas', 'Other Brands'],
     }
   },
   { 
@@ -218,7 +218,7 @@ const categories: Category[] = [
     name: 'Footwear', 
     slug: 'footwear',
     filters: {
-      brands: ['Nike', 'Puma', 'Adidas'],
+      brands: ['Nike', 'Puma', 'Adidas', 'Other Brands'],
     }
   },
   { 
