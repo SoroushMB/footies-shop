@@ -18,6 +18,7 @@ import { ProductCard } from '@/components/product-card';
 import { getFeaturedProducts, getCategories, getPopularProducts } from '@/lib/data';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
+import { WelcomeDialog } from '@/components/welcome-dialog';
 
 export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
@@ -34,6 +35,15 @@ export default function HomePage() {
   const [popularCurrent, setPopularCurrent] = React.useState(0)
 
   const [slidesToShow, setSlidesToShow] = React.useState(4);
+  const [showWelcomePopup, setShowWelcomePopup] = React.useState(false);
+
+  React.useEffect(() => {
+    const hasSeenPopup = sessionStorage.getItem('hasSeenWelcomePopup');
+    if (!hasSeenPopup) {
+      setShowWelcomePopup(true);
+      sessionStorage.setItem('hasSeenWelcomePopup', 'true');
+    }
+  }, []);
 
   React.useEffect(() => {
     function updateSlidesToShow() {
@@ -85,6 +95,8 @@ export default function HomePage() {
   ];
 
   return (
+    <>
+    <WelcomeDialog open={showWelcomePopup} onOpenChange={setShowWelcomePopup} />
     <div className="space-y-20">
       <section className="text-center py-10 md:py-20 relative">
         <div className="relative z-10 max-w-4xl mx-auto">
@@ -203,7 +215,7 @@ export default function HomePage() {
         >
           <CarouselContent>
             {popularProducts.map((product) => (
-              <CarouselItem key={product.id} className="basis-1/2 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+              <CarouselItem key={product.id} className="basis-1/2 sm-basis-1/2 lg:basis-1/3 xl:basis-1/4">
                 <div className="p-1">
                   <ProductCard product={product} />
                 </div>
@@ -227,5 +239,6 @@ export default function HomePage() {
         </div>
       </section>
     </div>
+    </>
   );
 }
