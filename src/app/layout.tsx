@@ -6,6 +6,7 @@ import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { CartProvider } from '@/contexts/cart-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/contexts/auth-provider';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -39,14 +40,16 @@ export default function RootLayout({
         data-ai-hint="stadium background"
       >
         <div className="relative flex min-h-screen flex-col backdrop-blur-lg bg-black/50">
-          <CartProvider>
-            <SiteHeader />
-            <main className="flex-1 container mx-auto px-4 py-8 pt-40">
-              {children}
-            </main>
-            <SiteFooter />
-            <Toaster />
-          </CartProvider>
+          <AuthProvider>
+            <CartProvider>
+              <SiteHeader />
+              <main className="flex-1 container mx-auto px-4 py-8 pt-40">
+                {children}
+              </main>
+              <SiteFooter />
+              <Toaster />
+            </CartProvider>
+          </AuthProvider>
         </div>
       </body>
     </html>

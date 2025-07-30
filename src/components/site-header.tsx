@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, Search, ShoppingBag, User, X } from 'lucide-react';
+import { LogOut, Menu, Search, ShoppingBag, User, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -14,10 +14,20 @@ import { CartSheet } from './cart-sheet';
 import { Input } from './ui/input';
 import { cn } from '@/lib/utils';
 import { Icons } from './icons';
+import { useAuth } from '@/contexts/auth-provider';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 
 export function SiteHeader() {
   const categories = getCategories();
   const { cart } = useCart();
+  const { user, signOut } = useAuth();
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -69,11 +79,32 @@ export function SiteHeader() {
               {isSearchActive ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
             </Button>
 
-            <Link href="/account">
-              <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white">
-                <User className="h-5 w-5" />
-              </Button>
-            </Link>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => router.push('/account')}>
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={signOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link href="/account">
+                <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white">
+                  <User className="h-5 w-5" />
+                </Button>
+              </Link>
+            )}
             
             <CartSheet>
               <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10 hover:text-white">
@@ -128,6 +159,15 @@ export function SiteHeader() {
                                 Account
                             </Button>
                           </Link>
+                           {user && (
+                            <Button variant="outline" className="w-full justify-start gap-2" onClick={() => {
+                              signOut();
+                              setIsMobileMenuOpen(false);
+                            }}>
+                                <LogOut className="h-5 w-5" />
+                                Logout
+                            </Button>
+                          )}
                       </div>
                   </div>
                 </div>
