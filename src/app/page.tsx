@@ -93,7 +93,7 @@ export default function HomePage() {
 
   const heroImages = [
     { src: 'https://www.soccerbible.com/media/170813/madrid16-min.jpg', alt: 'Real Madrid jersey', hint: 'football jersey' },
-    { src: 'https://images.unsplash.com/photo-1553778263-73a83bab9b83?q=80&w=1920&auto=format&fit=crop', alt: 'Player kicking a football', hint: 'football player' },
+    { src: 'https://assets.goal.com/images/v3/blte8dcd83e6b8bc7d0/GOAL%20-%20Blank%20WEB%20-%20Facebook%20(30).jpg?auto=webp&format=pjpg&width=2048&quality=60', alt: 'Player kicking a football', hint: 'football player' },
     { src: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1920&auto=format&fit=crop', alt: 'Football stadium', hint: 'football stadium' },
   ];
 
