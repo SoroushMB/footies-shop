@@ -47,9 +47,9 @@ export function ProductCard({ product }: ProductCardProps) {
       </Link>
       <CardContent className="p-4 flex flex-col flex-grow">
         <Link href={`/product/${product.slug}`} className="block flex-grow">
-          <h3 className="font-semibold text-lg truncate">{product.name}</h3>
-          <p className="text-sm text-neutral-400">{product.category}</p>
-          <p className="font-bold text-xl mt-2 text-accent">${product.price.toFixed(2)}</p>
+          <h3 className="font-semibold text-lg truncate text-center">{product.name}</h3>
+          <p className="text-sm text-neutral-400 text-center">{product.category}</p>
+          <p className="font-bold text-xl mt-2 text-accent text-center">${product.price.toFixed(2)}</p>
         </Link>
         <div className="mt-4 flex flex-col gap-2">
           <Button
