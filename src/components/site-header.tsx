@@ -34,7 +34,7 @@ export function SiteHeader() {
   };
   
   const marqueeTexts = [
-    '🎉 Free Shipping On Orders Over $50',
+    '🎉 Free Shipping On Orders Over $60',
     '⚽ New Season Arrivals Out Now',
     '🏆 Shop The Latest Kits',
   ];
