@@ -95,6 +95,8 @@ export default function HomePage() {
     { src: 'https://www.soccerbible.com/media/170813/madrid16-min.jpg', alt: 'Real Madrid jersey', hint: 'football jersey' },
     { src: 'https://assets.goal.com/images/v3/blte8dcd83e6b8bc7d0/GOAL%20-%20Blank%20WEB%20-%20Facebook%20(30).jpg?auto=webp&format=pjpg&width=2048&quality=60', alt: 'Player kicking a football', hint: 'football player' },
     { src: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1920&auto=format&fit=crop', alt: 'Football stadium', hint: 'football stadium' },
+    { src: 'https://placehold.co/1920x1080.png', alt: 'New football gear', hint: 'football gear' },
+    { src: 'https://placehold.co/1920x1080.png', alt: 'Fans cheering', hint: 'football fans' },
   ];
 
   return (
