@@ -23,7 +23,19 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md p-6 overflow-hidden">
         <DialogHeader className="text-center">
-          <DialogTitle className="text-2xl font-bold font-headline">Shop Smarter: Save 10% on Every Order.</DialogTitle>
+          <DialogTitle className="text-2xl font-bold font-headline">
+            Shop Smarter.
+            <span
+              className="block text-4xl font-extrabold"
+              style={{
+                color: '#FFFF00',
+                textShadow:
+                  '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000',
+              }}
+            >
+              Save 10% on Every Order.
+            </span>
+          </DialogTitle>
         </DialogHeader>
         <div className="space-y-4 text-center text-sm text-muted-foreground">
           <p>
