@@ -14,11 +14,20 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function AccountPage() {
+  const [activeTab, setActiveTab] = useState('login');
+
+  useEffect(() => {
+    if (window.location.hash === '#signup') {
+      setActiveTab('signup');
+    }
+  }, []);
+
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-20rem)]">
-      <Tabs defaultValue="login" className="w-[400px]">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="login">Login</TabsTrigger>
           <TabsTrigger value="signup">Create Account</TabsTrigger>

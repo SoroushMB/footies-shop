@@ -35,12 +35,12 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
         <DialogHeader className="p-6 text-center">
           <DialogTitle className="text-2xl font-bold font-headline">Welcome to Footies-Shop!</DialogTitle>
           <DialogDescription>
-            Get 15% off your first order. Use code <span className="font-bold text-accent">WELCOME15</span> at checkout.
+            Get 15% off your first order. Use code <span className="font-bold text-accent">WELCOME15</span> at checkout when you register.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex-col sm:flex-col sm:justify-center gap-2 p-6 pt-0">
           <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-            <Link href="/category/jerseys">Shop Now</Link>
+            <Link href="/account#signup">Register Now</Link>
           </Button>
            <Button variant="ghost" onClick={() => onOpenChange(false)}>
             Continue browsing

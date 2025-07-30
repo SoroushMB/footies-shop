@@ -40,8 +40,11 @@ export default function HomePage() {
   React.useEffect(() => {
     const hasSeenPopup = sessionStorage.getItem('hasSeenWelcomePopup');
     if (!hasSeenPopup) {
-      setShowWelcomePopup(true);
-      sessionStorage.setItem('hasSeenWelcomePopup', 'true');
+      const timer = setTimeout(() => {
+        setShowWelcomePopup(true);
+        sessionStorage.setItem('hasSeenWelcomePopup', 'true');
+      }, 3000); // 3 seconds delay
+      return () => clearTimeout(timer);
     }
   }, []);
 
