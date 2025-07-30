@@ -130,7 +130,12 @@ const products: Product[] = [
     price: 249.99,
     images: ['https://images.unsplash.com/photo-1526279979402-99a384074a15?q=80&w=600&auto=format&fit=crop', 'https://images.unsplash.com/photo-1608229452294-252f4019b841?q=80&w=600&auto=format&fit=crop'],
     brand: 'Nike',
-    sizes: ['6', '7', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12', '13'],
+    sizes: [
+        '4 M / 5.5 W', '4.5 M / 6 W', '5 M / 6.5 W', '5.5 M / 7 W', '6 M / 7.5 W', 
+        '6.5 M / 8 W', '7 M / 8.5 W', '7.5 M / 9 W', '8 M / 9.5 W', '8.5 M / 10 W', 
+        '9 M / 10.5 W', '9.5 M / 11 W', '10 M / 11.5 W', '10.5 M / 12 W', 
+        '11 M / 12.5 W', '11.5 M / 13 W', '12 M / 13.5 W', '13 M / 14.5 W', '14 M / 15.5 W'
+    ],
     isFeatured: true,
     isPopular: true,
   },
@@ -144,7 +149,12 @@ const products: Product[] = [
     price: 119.99,
     images: ['https://images.unsplash.com/photo-1627914946322-9598a3949987?q=80&w=600&auto=format&fit=crop'],
     brand: 'Puma',
-    sizes: ['7', '8', '8.5', '9', '9.5', '10', '11', '12'],
+    sizes: [
+        '4 M / 5.5 W', '4.5 M / 6 W', '5 M / 6.5 W', '5.5 M / 7 W', '6 M / 7.5 W', 
+        '6.5 M / 8 W', '7 M / 8.5 W', '7.5 M / 9 W', '8 M / 9.5 W', '8.5 M / 10 W', 
+        '9 M / 10.5 W', '9.5 M / 11 W', '10 M / 11.5 W', '10.5 M / 12 W', 
+        '11 M / 12.5 W', '11.5 M / 13 W', '12 M / 13.5 W', '13 M / 14.5 W', '14 M / 15.5 W'
+    ],
   },
   // Accessories
   {
