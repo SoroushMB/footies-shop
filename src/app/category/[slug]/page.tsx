@@ -47,28 +47,32 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
             {filters.teams && (
               <div>
                 <h3 className="font-semibold mb-3 text-white">Teams</h3>
-                <div className="space-y-2">
-                  {filters.teams.map((team) => (
-                    <div key={team} className="flex items-center space-x-2">
-                      <Checkbox id={`team-${team}`} />
-                      <Label htmlFor={`team-${team}`} className="text-neutral-300">{team}</Label>
-                    </div>
-                  ))}
-                </div>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a Team" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {filters.teams.map((team) => (
+                      <SelectItem key={team} value={team}>{team}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             )}
             
             {filters.nationalTeams && (
               <div>
                 <h3 className="font-semibold mb-3 text-white">National Teams</h3>
-                <div className="space-y-2">
-                  {filters.nationalTeams.map((team) => (
-                    <div key={team} className="flex items-center space-x-2">
-                      <Checkbox id={`national-team-${team}`} />
-                      <Label htmlFor={`national-team-${team}`} className="text-neutral-300">{team}</Label>
-                    </div>
-                  ))}
-                </div>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a National Team" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {filters.nationalTeams.map((team) => (
+                      <SelectItem key={team} value={team}>{team}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             )}
             
