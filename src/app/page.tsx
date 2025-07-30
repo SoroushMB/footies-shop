@@ -34,7 +34,6 @@ export default function HomePage() {
   const [popularApi, setPopularApi] = React.useState<CarouselApi>()
   const [popularCurrent, setPopularCurrent] = React.useState(0)
 
-  const [slidesToShow, setSlidesToShow] = React.useState(4);
   const [showWelcomePopup, setShowWelcomePopup] = React.useState(false);
 
   React.useEffect(() => {
@@ -46,22 +45,6 @@ export default function HomePage() {
       }, 3000); // 3 seconds delay
       return () => clearTimeout(timer);
     }
-  }, []);
-
-  React.useEffect(() => {
-    function updateSlidesToShow() {
-      const screenWidth = window.innerWidth;
-      if (screenWidth < 640) {
-        setSlidesToShow(2);
-      } else if (screenWidth < 1024) {
-        setSlidesToShow(3);
-      } else {
-        setSlidesToShow(4);
-      }
-    }
-    updateSlidesToShow();
-    window.addEventListener('resize', updateSlidesToShow);
-    return () => window.removeEventListener('resize', updateSlidesToShow);
   }, []);
 
   React.useEffect(() => {
@@ -197,7 +180,7 @@ export default function HomePage() {
           <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
         </Carousel>
         <div className="py-2 flex justify-center gap-2 mt-2">
-            {Array.from({ length: Math.ceil(featuredProducts.length / slidesToShow) }).map((_, i) => (
+            {featuredProducts.map((_, i) => (
               <button
                 key={i}
                 onClick={() => featuredApi?.scrollTo(i)}
@@ -233,7 +216,7 @@ export default function HomePage() {
           <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
         </Carousel>
         <div className="py-2 flex justify-center gap-2 mt-2">
-            {Array.from({ length: Math.ceil(popularProducts.length / slidesToShow) }).map((_, i) => (
+            {popularProducts.map((_, i) => (
               <button
                 key={i}
                 onClick={() => popularApi?.scrollTo(i)}
