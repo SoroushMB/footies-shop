@@ -58,8 +58,11 @@ export default function AccountPage() {
                 <Input id="login-password" type="password" />
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex flex-col gap-4">
               <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">Login</Button>
+              <Button variant="link" size="sm" className="text-muted-foreground" onClick={() => setActiveTab('signup')}>
+                Don't have an account? Create one
+              </Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -85,8 +88,11 @@ export default function AccountPage() {
                 <Input id="signup-password" type="password" />
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex flex-col gap-4">
               <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">Create Account</Button>
+               <Button variant="link" size="sm" className="text-muted-foreground" onClick={() => setActiveTab('login')}>
+                Already have an account? Login
+              </Button>
             </CardFooter>
           </Card>
         </TabsContent>
