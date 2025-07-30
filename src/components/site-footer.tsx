@@ -42,7 +42,6 @@ export function SiteFooter() {
             { name: 'Apparel', href: '/category/apparel' },
             { name: 'Footwear', href: '/category/footwear' },
             { name: 'Accessories', href: '/category/accessories' },
-            { name: 'Other Sports', href: '/category/other-sports' },
           ]} />
           <FooterLinkColumn title="Information" links={[
             { name: 'About Us', href: '#' },
