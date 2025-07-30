@@ -128,7 +128,7 @@ const products: Product[] = [
     category: 'Footwear',
     categorySlug: 'footwear',
     price: 249.99,
-    images: ['https://images.unsplash.com/photo-1526279979402-99a384074a15?q=80&w=600&auto=format&fit=crop', 'https://images.unsplash.com/photo-1608229452294-252f4019b841?q=80&w=600&auto=format&fit=crop'],
+    images: ['https://botasmaniacos.com/cdn/shop/files/F3151815-EFB3-4895-B9A7-CD5BF2E00479.jpg?v=1734387883&width=1646', 'https://images.unsplash.com/photo-1608229452294-252f4019b841?q=80&w=600&auto=format&fit=crop'],
     brand: 'Nike',
     sizes: [
         '4 M / 5.5 W', '4.5 M / 6 W', '5 M / 6.5 W', '5.5 M / 7 W', '6 M / 7.5 W', 

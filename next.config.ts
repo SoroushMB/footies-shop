@@ -34,6 +34,12 @@ const nextConfig: NextConfig = {
         hostname: 'assets.goal.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'botasmaniacos.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
