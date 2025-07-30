@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -20,14 +21,18 @@ import {
 import { AddToCartButton } from '@/components/add-to-cart-button';
 import { ProductSuggestions } from '@/components/product-suggestions';
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { useCart } from '@/contexts/cart-provider';
+import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
+import { ShoppingCart } from 'lucide-react';
 
 interface ProductDetailClientProps {
   product: Product;
@@ -35,7 +40,43 @@ interface ProductDetailClientProps {
 
 export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [showSizeAlert, setShowSizeAlert] = useState(false);
+  const [showSizeDialog, setShowSizeDialog] = useState(false);
+  const [actionToPerform, setActionToPerform] = useState<'addToCart' | 'buyNow' | null>(null);
+
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const handleAction = (action: 'addToCart' | 'buyNow') => {
+    if (selectedSize) {
+      addToCart(product, 1);
+      if (action === 'buyNow') {
+        router.push('/checkout');
+      } else {
+        toast({
+          title: 'Added to cart',
+          description: `${product.name} has been added to your cart.`,
+        });
+      }
+    } else {
+      setActionToPerform(action);
+      setShowSizeDialog(true);
+    }
+  };
+
+  const handleSizeSelectionInDialog = () => {
+    if (selectedSize && actionToPerform) {
+      handleAction(actionToPerform);
+      setShowSizeDialog(false);
+      setActionToPerform(null);
+    } else {
+       toast({
+        variant: 'destructive',
+        title: 'No size selected',
+        description: `Please select a size to continue.`,
+      });
+    }
+  };
 
   return (
     <>
@@ -89,9 +130,8 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             </div>
             
             <AddToCartButton
-              product={product}
-              selectedSize={selectedSize}
-              onSizeNotSelected={() => setShowSizeAlert(true)}
+              onAddToCart={() => handleAction('addToCart')}
+              onBuyNow={() => handleAction('buyNow')}
             />
 
           </div>
@@ -101,19 +141,36 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
         </div>
       </div>
 
-      <AlertDialog open={showSizeAlert} onOpenChange={setShowSizeAlert}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Please select a size</AlertDialogTitle>
-            <AlertDialogDescription>
-              You need to select a size before you can add this item to your cart.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction onClick={() => setShowSizeAlert(false)}>OK</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <Dialog open={showSizeDialog} onOpenChange={setShowSizeDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Please select a size</DialogTitle>
+            <DialogDescription>
+              Choose a size for {product.name} to add it to your cart.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <Select onValueChange={setSelectedSize}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a size" />
+              </SelectTrigger>
+              <SelectContent>
+                {product.sizes.map((size) => (
+                  <SelectItem key={size} value={size}>
+                    {size}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <DialogFooter>
+            <Button onClick={handleSizeSelectionInDialog}>
+              <ShoppingCart className="mr-2 h-5 w-5" />
+              {actionToPerform === 'buyNow' ? 'Buy Now' : 'Add to Cart'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
