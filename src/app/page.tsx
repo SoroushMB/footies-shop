@@ -97,6 +97,8 @@ export default function HomePage() {
     { src: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1920&auto=format&fit=crop', alt: 'Football stadium', hint: 'football stadium' },
     { src: 'https://placehold.co/1920x1080.png', alt: 'New football gear', hint: 'football gear' },
     { src: 'https://placehold.co/1920x1080.png', alt: 'Fans cheering', hint: 'football fans' },
+    { src: 'https://placehold.co/1920x1080.png', alt: 'Action shot', hint: 'football action' },
+    { src: 'https://placehold.co/1920x1080.png', alt: 'Team huddle', hint: 'team huddle' },
   ];
 
   return (
