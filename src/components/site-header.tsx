@@ -134,18 +134,21 @@ export function SiteHeader() {
       </div>
       
       <div className="h-12 bg-accent flex items-center overflow-hidden">
-        <div className="whitespace-nowrap flex items-center animate-marquee">
-          {marqueeTexts.map((text, index) => (
-            <p key={index} className="text-accent-foreground font-bold text-lg mx-8">
-              {text}
-            </p>
-          ))}
-          {/* Duplicate for seamless loop */}
-          {marqueeTexts.map((text, index) => (
-            <p key={`dup-${index}`} className="text-accent-foreground font-bold text-lg mx-8" aria-hidden="true">
-              {text}
-            </p>
-          ))}
+        <div className="flex">
+          <div className="whitespace-nowrap flex items-center animate-marquee">
+            {marqueeTexts.map((text, index) => (
+              <p key={index} className="text-accent-foreground font-bold text-lg mx-8">
+                {text}
+              </p>
+            ))}
+          </div>
+          <div className="whitespace-nowrap flex items-center animate-marquee" aria-hidden="true">
+            {marqueeTexts.map((text, index) => (
+              <p key={`dup-${index}`} className="text-accent-foreground font-bold text-lg mx-8">
+                {text}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
       
