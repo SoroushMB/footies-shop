@@ -9,7 +9,8 @@ import Image from 'next/image';
 import { Separator } from '@/components/ui/separator';
 
 export default function CheckoutPage() {
-  const { cart, subtotal } = useCart();
+  const { cart } = useCart();
+  const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const shipping = 5.00;
   const total = subtotal + shipping;
 
@@ -135,11 +136,4 @@ export default function CheckoutPage() {
         </div>
     </div>
   );
-}
-
-// Augment useCart hook to expose subtotal. In a real app this might be derived differently.
-const useCartAugmented = () => {
-    const cartContext = useCart();
-    const subtotal = cartContext.cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    return { ...cartContext, subtotal };
 }
