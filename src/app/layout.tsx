@@ -30,30 +30,32 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'bg-background font-sans antialiased',
           poppins.variable
         )}
       >
-        <div
-          className="fixed inset-0 z-[-1] bg-cover bg-center"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1546608235-3310a2494cdf?q=80&w=1920&auto=format&fit=crop')`,
-          }}
-          data-ai-hint="stadium background"
-        />
-        <div className="relative flex min-h-screen flex-col backdrop-blur-lg bg-black/50">
-          <AuthProvider>
-            <CartProvider>
-              <SiteHeader />
-              <main className="flex-1 container mx-auto px-4 py-8 pt-40">
-                {children}
-              </main>
-              <SiteFooter />
-              <Toaster />
-            </CartProvider>
-          </AuthProvider>
+        <div className="relative min-h-screen">
+            <div
+              className="fixed inset-0 z-[-1] bg-cover bg-center"
+              style={{
+                backgroundImage: `url('https://images.unsplash.com/photo-1546608235-3310a2494cdf?q=80&w=1920&auto=format&fit=crop')`,
+              }}
+              data-ai-hint="stadium background"
+            />
+            <div className="relative flex min-h-screen flex-col backdrop-blur-lg bg-black/50">
+              <AuthProvider>
+                <CartProvider>
+                  <SiteHeader />
+                  <main className="flex-1 container mx-auto px-4 py-8 pt-40">
+                    {children}
+                  </main>
+                  <SiteFooter />
+                  <Toaster />
+                </CartProvider>
+              </AuthProvider>
+            </div>
+            <ChatWidget />
         </div>
-        <ChatWidget />
       </body>
     </html>
   );
