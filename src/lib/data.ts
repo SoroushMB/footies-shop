@@ -1,3 +1,4 @@
+
 export type Product = {
   id: string;
   slug: string;
@@ -228,7 +229,7 @@ const categories: Category[] = [
     name: 'Accessories',
     slug: 'accessories',
     filters: {
-      brands: ['Other Brands'],
+      brands: ['Nike', 'Adidas', 'Other Brands'],
     }
   },
   {
