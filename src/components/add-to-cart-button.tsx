@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -6,17 +7,37 @@ import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/cart-provider';
 import type { Product } from '@/lib/data';
 import { ShoppingBag, ShoppingCart } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
-export function AddToCartButton({ product }: { product: Product }) {
+interface AddToCartButtonProps {
+  product: Product;
+  selectedSize: string | null;
+  onSizeNotSelected: () => void;
+}
+
+export function AddToCartButton({ product, selectedSize, onSizeNotSelected }: AddToCartButtonProps) {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
+  const { toast } = useToast();
 
   const handleAddToCart = () => {
+    if (!selectedSize) {
+      onSizeNotSelected();
+      return;
+    }
     addToCart(product, quantity);
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
   };
   
   const handleBuyNow = () => {
+    if (!selectedSize) {
+      onSizeNotSelected();
+      return;
+    }
     addToCart(product, quantity);
     router.push('/checkout');
   }
