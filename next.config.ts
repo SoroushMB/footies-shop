@@ -46,6 +46,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.elverys.ie',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'dswa1xdat8uez.cloudfront.net',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
