@@ -130,7 +130,7 @@ const products: Product[] = [
     price: 249.99,
     images: ['https://images.unsplash.com/photo-1526279979402-99a384074a15?q=80&w=600&auto=format&fit=crop', 'https://images.unsplash.com/photo-1608229452294-252f4019b841?q=80&w=600&auto=format&fit=crop'],
     brand: 'Nike',
-    sizes: ['8', '9', '10', '11', '12'],
+    sizes: ['6', '7', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12', '13'],
     isFeatured: true,
     isPopular: true,
   },
@@ -144,7 +144,7 @@ const products: Product[] = [
     price: 119.99,
     images: ['https://images.unsplash.com/photo-1627914946322-9598a3949987?q=80&w=600&auto=format&fit=crop'],
     brand: 'Puma',
-    sizes: ['8', '9', '10', '11'],
+    sizes: ['7', '8', '8.5', '9', '9.5', '10', '11', '12'],
   },
   // Accessories
   {
