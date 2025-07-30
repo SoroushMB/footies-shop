@@ -50,8 +50,8 @@ export function SiteFooter() {
             { name: 'Contact Us', href: '/contact' },
           ]} />
           <FooterLinkColumn title="Legal" links={[
-            { name: 'Terms of Service', href: '#' },
-            { name: 'Privacy Policy', href: '#' },
+            { name: 'Terms of Service', href: '/terms-of-service' },
+            { name: 'Privacy Policy', href: '/privacy-policy' },
           ]} />
           <div className="lg:col-span-2 text-center md:text-left">
             <h4 className="font-bold text-white mb-4">Follow Us</h4>
