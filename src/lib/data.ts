@@ -187,9 +187,9 @@ const products: Product[] = [
 ];
 
 const categories: Category[] = [
-  { 
-    id: '1', 
-    name: 'Jerseys', 
+  {
+    id: '1',
+    name: 'Jerseys',
     slug: 'jerseys',
     filters: {
       teams: ['FC Barcelona', 'Real Madrid', 'Manchester United'],
@@ -197,17 +197,17 @@ const categories: Category[] = [
       brands: ['Nike', 'Adidas', 'Puma', 'Other Brands'],
     }
   },
-  { 
-    id: '2', 
-    name: 'Footballs', 
+  {
+    id: '2',
+    name: 'Footballs',
     slug: 'footballs',
     filters: {
       brands: ['Nike', 'Adidas', 'Other Brands'],
     }
   },
-  { 
-    id: '3', 
-    name: 'Apparel', 
+  {
+    id: '3',
+    name: 'Apparel',
     slug: 'apparel',
     filters: {
       teams: ['FC Barcelona', 'Real Madrid', 'Manchester United'],
@@ -215,25 +215,25 @@ const categories: Category[] = [
       brands: ['Nike', 'Adidas', 'Other Brands'],
     }
   },
-  { 
-    id: '4', 
-    name: 'Footwear', 
+  {
+    id: '4',
+    name: 'Footwear',
     slug: 'footwear',
     filters: {
       brands: ['Nike', 'Puma', 'Adidas', 'Other Brands'],
     }
   },
-  { 
-    id: '5', 
-    name: 'Accessories', 
+  {
+    id: '5',
+    name: 'Accessories',
     slug: 'accessories',
     filters: {
       brands: ['Other Brands'],
     }
   },
-  { 
-    id: '6', 
-    name: 'Other Sports', 
+  {
+    id: '6',
+    name: 'Other Sports',
     slug: 'other-sports',
     filters: {
       teams: ['Lakers', 'Yankees'],
