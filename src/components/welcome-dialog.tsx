@@ -34,14 +34,14 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
             <div className="flex items-start gap-3">
               <BadgeCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
               <div>
-                <h4 className="font-bold text-foreground">SAVE 10% RIGHT NOW</h4>
+                <h4 className="font-bold text-accent">SAVE 10% RIGHT NOW</h4>
                 <p>Get an instant 10% discount on your entire first order the moment you sign up.</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <BadgeCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
               <div>
-                <h4 className="font-bold text-foreground">KEEP SAVING 10%</h4>
+                <h4 className="font-bold text-accent">KEEP SAVING 10%</h4>
                 <p>Then, automatically save 10% on all future orders over $40—every single time you shop with your account.</p>
               </div>
             </div>
