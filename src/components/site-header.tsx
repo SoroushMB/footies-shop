@@ -44,17 +44,6 @@ export function SiteHeader() {
                 Footies-Shop
               </span>
             </Link>
-            <nav className="hidden md:flex gap-6">
-              {categories.map((category) => (
-                <Link
-                  key={category.id}
-                  href={`/category/${category.slug}`}
-                  className="text-sm font-medium text-neutral-300 transition-colors hover:text-white"
-                >
-                  {category.name}
-                </Link>
-              ))}
-            </nav>
           </div>
           
           <div className="flex items-center gap-4">
@@ -125,9 +114,28 @@ export function SiteHeader() {
           </div>
         </div>
       </div>
+
+      {/* Permanent Navigation Bar */}
+      <div className="hidden md:block glassmorphism border-t border-white/10">
+          <div className="container mx-auto">
+            <nav className="flex h-12 items-center justify-center gap-8">
+              {categories.map((category) => (
+                <Link
+                  key={category.id}
+                  href={`/category/${category.slug}`}
+                  className="text-sm font-medium text-neutral-300 transition-colors hover:text-white"
+                >
+                  {category.name}
+                </Link>
+              ))}
+            </nav>
+          </div>
+      </div>
+      
+      {/* Search Bar */}
       <div className={cn(
-        "glassmorphism transition-[transform,opacity] duration-300",
-        isSearchActive ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+        "glassmorphism transition-all duration-300 ease-in-out overflow-hidden",
+        isSearchActive ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
       )}>
         <div className="container mx-auto">
           <form onSubmit={handleSearch} className="relative flex h-20 items-center">
