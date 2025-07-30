@@ -4,10 +4,10 @@ import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
+  apiKey: "AIzaSyCeKvXLN91wumXsA3M3mQj0JP_EAsTx8IM",
   projectId: "apex-football-gear",
   appId: "1:379835825888:web:13e28f6f67c7c57d999a85",
   storageBucket: "apex-football-gear.firebasestorage.app",
-  apiKey: "AIzaSyCeKvXLN91wumXsA3M3mQj0JP_EAsTx8IM",
   authDomain: "apex-football-gear.firebaseapp.com",
   messagingSenderId: "379835825888",
 };
