@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -46,13 +47,14 @@ export function ChatWidget() {
   };
   
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
+    const viewport = scrollAreaRef.current?.querySelector('div[data-radix-scroll-area-viewport]');
+    if (viewport) {
+      viewport.scrollTo({
+        top: viewport.scrollHeight,
         behavior: 'smooth',
       });
     }
-  }, [messages]);
+  }, [messages, isLoading]);
 
 
   return (
