@@ -62,7 +62,7 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
             You'll be given a code to apply at checkout for your savings. Just smart, automatic savings.
           </p>
         </div>
-        <DialogFooter className="flex-col sm:flex-col sm:justify-center gap-2 pt-2">
+        <DialogFooter className="flex-col gap-2 pt-2 items-center">
           <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
             <Link href="/account#signup">Register Now</Link>
           </Button>
