@@ -36,6 +36,7 @@ export function SiteHeader() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="glassmorphism">
+        {/* Main Header */}
         <div className="container mx-auto flex h-20 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center space-x-2">
@@ -48,13 +49,13 @@ export function SiteHeader() {
 
           <nav className="hidden md:flex items-center justify-center gap-8">
             {categories.map((category) => (
-                <Link
-                    key={category.id}
-                    href={`/category/${category.slug}`}
-                    className="text-base font-medium text-neutral-300 transition-colors hover:text-white"
-                >
-                    {category.name}
-                </Link>
+              <Link
+                key={category.id}
+                href={`/category/${category.slug}`}
+                className="text-base font-medium text-neutral-300 transition-colors hover:text-white"
+              >
+                {category.name}
+              </Link>
             ))}
           </nav>
           
@@ -123,6 +124,13 @@ export function SiteHeader() {
                 </div>
               </SheetContent>
             </Sheet>
+          </div>
+        </div>
+
+        {/* Empty Second Bar */}
+        <div className="h-12 border-t border-white/10">
+          <div className="container mx-auto flex h-full items-center">
+            {/* This bar is intentionally left empty for now */}
           </div>
         </div>
       </div>
