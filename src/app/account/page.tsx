@@ -109,10 +109,14 @@ export default function AccountPage() {
       });
       router.push('/');
     } catch (error: any) {
+       let description = error.message;
+       if (error.code === 'auth/operation-not-allowed') {
+        description = "Email/Password sign-in is not enabled. Please enable it in the Firebase Console under Authentication > Sign-in method.";
+       }
        toast({
         variant: 'destructive',
         title: 'Signup Failed',
-        description: error.message,
+        description: description,
       });
     }
   };
