@@ -26,7 +26,7 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
         <SheetTrigger asChild>
             {children}
         </SheetTrigger>
-        <SheetContent className="flex w-full flex-col pr-0 sm:max-w-lg glassmorphism !bg-background/80 border-l border-white/20">
+        <SheetContent className="flex w-full flex-col pr-0 sm:max-w-lg">
             <SheetHeader className="px-6">
                 <SheetTitle>Shopping Cart ({cart.length})</SheetTitle>
             </SheetHeader>
