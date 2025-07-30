@@ -41,7 +41,7 @@ export default function RootLayout({
         <div className="relative flex min-h-screen flex-col backdrop-blur-lg bg-black/50">
           <CartProvider>
             <SiteHeader />
-            <main className="flex-1 container mx-auto px-4 py-8 pt-40">
+            <main className="flex-1 container mx-auto px-4 py-8 pt-28">
               {children}
             </main>
             <SiteFooter />

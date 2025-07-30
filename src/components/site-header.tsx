@@ -45,6 +45,18 @@ export function SiteHeader() {
               </span>
             </Link>
           </div>
+
+          <nav className="hidden md:flex items-center justify-center gap-8">
+            {categories.map((category) => (
+                <Link
+                    key={category.id}
+                    href={`/category/${category.slug}`}
+                    className="text-base font-medium text-neutral-300 transition-colors hover:text-white"
+                >
+                    {category.name}
+                </Link>
+            ))}
+          </nav>
           
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white" onClick={() => setIsSearchActive(!isSearchActive)}>
@@ -113,15 +125,6 @@ export function SiteHeader() {
             </Sheet>
           </div>
         </div>
-      </div>
-
-      {/* Permanent Navigation Bar */}
-      <div className="hidden md:block glassmorphism border-t border-white/10">
-          <div className="container mx-auto">
-            <nav className="flex h-12 items-center justify-center gap-8">
-              {/* Categories removed from here */}
-            </nav>
-          </div>
       </div>
       
       {/* Search Bar */}
