@@ -129,16 +129,12 @@ export function SiteHeader() {
         </div>
 
         {/* Empty Second Bar */}
-        <div className="h-12 bg-accent">
-          <div className="container mx-auto flex h-full items-center">
-            {/* This bar is intentionally left empty for now */}
-          </div>
-        </div>
+        <div className="h-12 bg-accent" />
       </div>
       
       {/* Search Bar */}
       <div className={cn(
-        "glassmorphism transition-all duration-300 ease-in-out overflow-hidden",
+        "transition-all duration-300 ease-in-out overflow-hidden",
         isSearchActive ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
       )}>
         <div className="container mx-auto">
