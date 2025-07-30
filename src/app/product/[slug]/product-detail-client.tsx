@@ -39,7 +39,7 @@ interface ProductDetailClientProps {
 }
 
 export function ProductDetailClient({ product }: ProductDetailClientProps) {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined);
   const [showSizeDialog, setShowSizeDialog] = useState(false);
   const [actionToPerform, setActionToPerform] = useState<'addToCart' | 'buyNow' | null>(null);
 
@@ -47,17 +47,21 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const { toast } = useToast();
   const router = useRouter();
 
-  const handleAction = (action: 'addToCart' | 'buyNow') => {
+  const performAction = (action: 'addToCart' | 'buyNow') => {
+    addToCart(product, 1);
+    if (action === 'buyNow') {
+      router.push('/checkout');
+    } else {
+      toast({
+        title: 'Added to cart',
+        description: `${product.name} has been added to your cart.`,
+      });
+    }
+  };
+
+  const handleInitiateAction = (action: 'addToCart' | 'buyNow') => {
     if (selectedSize) {
-      addToCart(product, 1);
-      if (action === 'buyNow') {
-        router.push('/checkout');
-      } else {
-        toast({
-          title: 'Added to cart',
-          description: `${product.name} has been added to your cart.`,
-        });
-      }
+      performAction(action);
     } else {
       setActionToPerform(action);
       setShowSizeDialog(true);
@@ -66,7 +70,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
 
   const handleSizeSelectionInDialog = () => {
     if (selectedSize && actionToPerform) {
-      handleAction(actionToPerform);
+      performAction(actionToPerform);
       setShowSizeDialog(false);
       setActionToPerform(null);
     } else {
@@ -115,7 +119,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           <div className="space-y-4">
             <div>
               <h3 className="text-sm font-medium text-neutral-400 mb-2">Size</h3>
-              <Select onValueChange={setSelectedSize} value={selectedSize || ''}>
+              <Select onValueChange={setSelectedSize} value={selectedSize}>
                 <SelectTrigger className="w-full md:w-[240px]">
                   <SelectValue placeholder="Select a size" />
                 </SelectTrigger>
@@ -130,8 +134,8 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             </div>
             
             <AddToCartButton
-              onAddToCart={() => handleAction('addToCart')}
-              onBuyNow={() => handleAction('buyNow')}
+              onAddToCart={() => handleInitiateAction('addToCart')}
+              onBuyNow={() => handleInitiateAction('buyNow')}
             />
 
           </div>
@@ -150,7 +154,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             </DialogDescription>
           </DialogHeader>
           <div className="py-4">
-            <Select onValueChange={setSelectedSize}>
+            <Select onValueChange={setSelectedSize} value={selectedSize}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a size" />
               </SelectTrigger>
