@@ -10,8 +10,6 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Input } from './ui/input';
-import Image from 'next/image';
 import Link from 'next/link';
 import { BadgeCheck } from 'lucide-react';
 
@@ -23,20 +21,11 @@ interface WelcomeDialogProps {
 export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-xl p-0 overflow-hidden">
-        <div className="relative aspect-video">
-          <Image 
-            src="https://images.unsplash.com/photo-1551958214-2d5b914b5a29?q=80&w=800&auto=format&fit=crop"
-            alt="Promotional image of football gear"
-            layout="fill"
-            objectFit="cover"
-            data-ai-hint="football gear"
-          />
-        </div>
-        <DialogHeader className="p-6 text-center">
+      <DialogContent className="sm:max-w-md p-6 overflow-hidden">
+        <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold font-headline">Shop Smarter: Save 10% on Every Order.</DialogTitle>
         </DialogHeader>
-        <div className="px-6 space-y-4 text-center text-sm text-muted-foreground">
+        <div className="space-y-4 text-center text-sm text-muted-foreground">
           <p>
             Stop paying full price. Creating your free account is the fastest way to unlock permanent savings on the gear you need. It takes less than 30 seconds.
           </p>
@@ -58,10 +47,10 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
             </div>
           </div>
            <p>
-            No codes to hunt down. No hassle. Just smart, automatic savings.
+            You'll be given a code to apply at checkout for your savings. Just smart, automatic savings.
           </p>
         </div>
-        <DialogFooter className="flex-col sm:flex-col sm:justify-center gap-2 p-6">
+        <DialogFooter className="flex-col sm:flex-col sm:justify-center gap-2 pt-2">
           <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
             <Link href="/account#signup">Register Now</Link>
           </Button>
