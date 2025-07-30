@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
         hostname: 'botasmaniacos.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.elverys.ie',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

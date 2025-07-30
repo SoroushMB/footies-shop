@@ -77,7 +77,7 @@ export default function HomePage() {
   const heroImages = [
     { src: 'https://www.soccerbible.com/media/170813/madrid16-min.jpg', alt: 'Real Madrid jersey', hint: 'football jersey' },
     { src: 'https://assets.goal.com/images/v3/blte8dcd83e6b8bc7d0/GOAL%20-%20Blank%20WEB%20-%20Facebook%20(30).jpg?auto=webp&format=pjpg&width=2048&quality=60', alt: 'Player kicking a football', hint: 'football player' },
-    { src: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1920&auto=format&fit=crop', alt: 'Football stadium', hint: 'football stadium' },
+    { src: 'https://www.elverys.ie/cdn/shop/files/Collection_Banner_ManCity_Home_25Q2_16x9_Desktop.jpg?v=1747062067&width=2400', alt: 'Football stadium', hint: 'football stadium' },
     { src: 'https://botasmaniacos.com/cdn/shop/files/F3151815-EFB3-4895-B9A7-CD5BF2E00479.jpg?v=1734387883&width=1646', alt: 'New football gear', hint: 'football cleats' },
     { src: 'https://placehold.co/1920x1080.png', alt: 'Fans cheering', hint: 'football fans' },
     { src: 'https://placehold.co/1920x1080.png', alt: 'Action shot', hint: 'football action' },
