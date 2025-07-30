@@ -17,7 +17,7 @@ interface AddToCartButtonProps {
 
 export function AddToCartButton({ product, selectedSize, onSizeNotSelected }: AddToCartButtonProps) {
   const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState(1);
+  const [quantity] = useState(1);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -44,11 +44,11 @@ export function AddToCartButton({ product, selectedSize, onSizeNotSelected }: Ad
 
   return (
     <div className="flex flex-col gap-2">
-      <Button size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" onClick={handleAddToCart}>
+      <Button size="lg" className="w-full" onClick={handleAddToCart}>
         <ShoppingCart className="mr-2 h-5 w-5" />
         Add to Cart
       </Button>
-       <Button size="lg" variant="outline" className="w-full" onClick={handleBuyNow}>
+       <Button size="lg" variant="outline" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" onClick={handleBuyNow}>
         <ShoppingBag className="mr-2 h-5 w-5" />
         Buy Now
       </Button>
