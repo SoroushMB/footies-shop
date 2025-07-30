@@ -21,6 +21,8 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
   }
 
   const brands = ['Nike', 'Puma', 'Adidas', 'Other Brands'];
+  const teams = ['FC Barcelona', 'Real Madrid', 'Manchester United'];
+  const nationalTeams = ['Brazil', 'Argentina', 'Germany'];
 
   return (
     <div className="grid md:grid-cols-4 gap-8">
@@ -51,6 +53,30 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
                   <div key={brand} className="flex items-center space-x-2">
                     <Checkbox id={`brand-${brand}`} />
                     <Label htmlFor={`brand-${brand}`} className="text-neutral-300">{brand}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-3 text-white">Teams</h3>
+              <div className="space-y-2">
+                {teams.map((team) => (
+                  <div key={team} className="flex items-center space-x-2">
+                    <Checkbox id={`team-${team}`} />
+                    <Label htmlFor={`team-${team}`} className="text-neutral-300">{team}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-3 text-white">National Teams</h3>
+              <div className="space-y-2">
+                {nationalTeams.map((team) => (
+                  <div key={team} className="flex items-center space-x-2">
+                    <Checkbox id={`national-team-${team}`} />
+                    <Label htmlFor={`national-team-${team}`} className="text-neutral-300">{team}</Label>
                   </div>
                 ))}
               </div>
