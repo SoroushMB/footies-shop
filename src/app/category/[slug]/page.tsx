@@ -64,7 +64,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
               <h3 className="font-semibold mb-3 text-white">National Teams</h3>
                 <Select>
                     <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a National Team" />
+                        <SelectValue placeholder="Select a Team" />
                     </SelectTrigger>
                     <SelectContent>
                         {nationalTeams.map((team) => (
