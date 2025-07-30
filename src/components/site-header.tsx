@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -128,7 +127,7 @@ export function SiteHeader() {
         </div>
 
         {/* Empty Second Bar */}
-        <div className="h-12 border-t border-white/10">
+        <div className="h-12 border-t border-white/10 bg-accent">
           <div className="container mx-auto flex h-full items-center">
             {/* This bar is intentionally left empty for now */}
           </div>
