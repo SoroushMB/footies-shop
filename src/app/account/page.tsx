@@ -1,0 +1,78 @@
+
+'use client';
+
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+export default function AccountPage() {
+  return (
+    <div className="flex justify-center items-center min-h-[calc(100vh-20rem)]">
+      <Tabs defaultValue="login" className="w-[400px]">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="login">Login</TabsTrigger>
+          <TabsTrigger value="signup">Create Account</TabsTrigger>
+        </TabsList>
+        <TabsContent value="login">
+          <Card className="glassmorphism">
+            <CardHeader>
+              <CardTitle>Login</CardTitle>
+              <CardDescription>
+                Welcome back! Please enter your details.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="login-email">Email</Label>
+                <Input id="login-email" type="email" placeholder="m@example.com" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="login-password">Password</Label>
+                <Input id="login-password" type="password" />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">Login</Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        <TabsContent value="signup">
+          <Card className="glassmorphism">
+            <CardHeader>
+              <CardTitle>Create Account</CardTitle>
+              <CardDescription>
+                New here? Create an account to get started.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+               <div className="space-y-2">
+                <Label htmlFor="signup-name">Name</Label>
+                <Input id="signup-name" placeholder="Your Name" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="signup-email">Email</Label>
+                <Input id="signup-email" type="email" placeholder="m@example.com" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="signup-password">Password</Label>
+                <Input id="signup-password" type="password" />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">Create Account</Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}

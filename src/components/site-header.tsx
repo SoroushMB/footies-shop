@@ -69,9 +69,11 @@ export function SiteHeader() {
               {isSearchActive ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
             </Button>
 
-            <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white">
-              <User className="h-5 w-5" />
-            </Button>
+            <Link href="/account">
+              <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white">
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
             
             <CartSheet>
               <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10 hover:text-white">
@@ -120,10 +122,12 @@ export function SiteHeader() {
                               <Search className="h-5 w-5" />
                               Search
                           </Button>
-                          <Button variant="outline" className="w-full justify-start gap-2">
-                              <User className="h-5 w-5" />
-                              Account
-                          </Button>
+                          <Link href="/account">
+                            <Button variant="outline" className="w-full justify-start gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+                                <User className="h-5 w-5" />
+                                Account
+                            </Button>
+                          </Link>
                       </div>
                   </div>
                 </div>
