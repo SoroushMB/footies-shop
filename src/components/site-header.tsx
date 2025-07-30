@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -31,17 +32,16 @@ export function SiteHeader() {
       setIsSearchActive(false);
     }
   };
-
+  
   const marqueeTexts = [
-    'Free Shipping On Orders Over $50',
-    'New Season Arrivals Out Now',
-    'Shop The Latest Kits',
+    '🎉 Free Shipping On Orders Over $50',
+    '⚽ New Season Arrivals Out Now',
+    '🏆 Shop The Latest Kits',
   ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="glassmorphism">
-        {/* Main Header */}
         <div className="container mx-auto flex h-20 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center space-x-2">
@@ -132,8 +132,7 @@ export function SiteHeader() {
           </div>
         </div>
       </div>
-
-      {/* Scrolling Announcement Bar */}
+      
       <div className="h-12 bg-accent flex items-center overflow-hidden">
         <div className="whitespace-nowrap flex items-center animate-marquee">
           {marqueeTexts.map((text, index) => (
@@ -150,9 +149,8 @@ export function SiteHeader() {
         </div>
       </div>
       
-      {/* Search Bar */}
       <div className={cn(
-        "transition-all duration-300 ease-in-out overflow-hidden bg-background",
+        "transition-all duration-300 ease-in-out overflow-hidden bg-transparent",
         isSearchActive ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
       )}>
         <div className="container mx-auto">
