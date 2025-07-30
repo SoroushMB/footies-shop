@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Link from 'next/link';
 
 export default function AccountPage() {
   return (
@@ -36,7 +37,15 @@ export default function AccountPage() {
                 <Input id="login-email" type="email" placeholder="m@example.com" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="login-password">Password</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="login-password">Password</Label>
+                  <Link
+                    href="/forgot-password"
+                    className="text-sm text-accent hover:underline"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
                 <Input id="login-password" type="password" />
               </div>
             </CardContent>
