@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'bg-background font-sans antialiased',
           poppins.variable
         )}
       >
@@ -41,18 +41,21 @@ export default function RootLayout({
           }}
           data-ai-hint="stadium background"
         />
-        <div className="relative flex flex-col bg-black/50 backdrop-blur-lg">
-          <AuthProvider>
-            <CartProvider>
+        <div className="fixed inset-0 z-[-1] bg-black/50 backdrop-blur-lg" />
+        
+        <AuthProvider>
+          <CartProvider>
+            <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
               <main className="flex-1 container mx-auto px-4 py-8 pt-40">
                 {children}
               </main>
               <SiteFooter />
               <Toaster />
-            </CartProvider>
-          </AuthProvider>
-        </div>
+            </div>
+          </CartProvider>
+        </AuthProvider>
+        
         <ChatWidget />
       </body>
     </html>
