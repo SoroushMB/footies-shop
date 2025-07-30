@@ -192,9 +192,9 @@ const categories: Category[] = [
     name: 'Jerseys', 
     slug: 'jerseys',
     filters: {
-      brands: ['Nike', 'Adidas', 'Puma', 'Other Brands'],
       teams: ['FC Barcelona', 'Real Madrid', 'Manchester United'],
       nationalTeams: ['Brazil', 'Argentina', 'Germany'],
+      brands: ['Nike', 'Adidas', 'Puma', 'Other Brands'],
     }
   },
   { 
@@ -210,6 +210,8 @@ const categories: Category[] = [
     name: 'Apparel', 
     slug: 'apparel',
     filters: {
+      teams: ['FC Barcelona', 'Real Madrid', 'Manchester United'],
+      nationalTeams: ['Brazil', 'Argentina', 'Germany'],
       brands: ['Nike', 'Adidas', 'Other Brands'],
     }
   },
@@ -234,8 +236,8 @@ const categories: Category[] = [
     name: 'Other Sports', 
     slug: 'other-sports',
     filters: {
+      teams: ['Lakers', 'Yankees'],
       brands: ['Nike', 'Other Brands'],
-      teams: ['Lakers', 'Yankees']
     }
   },
 ];
