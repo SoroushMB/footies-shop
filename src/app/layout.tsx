@@ -17,8 +17,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('http://localhost:3000'),
   title: 'Footies-Shop',
   description: 'High-quality football gear for athletes and fans.',
+  icons: null,
 };
 
 export default function RootLayout({

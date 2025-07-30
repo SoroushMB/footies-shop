@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
@@ -32,14 +33,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [isSheetOpen, setSheetOpen] = useState(false);
 
   useEffect(() => {
-    const storedCart = localStorage.getItem('apex_cart');
+    const storedCart = localStorage.getItem('footies_shop_cart');
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('apex_cart', JSON.stringify(cart));
+    localStorage.setItem('footies_shop_cart', JSON.stringify(cart));
   }, [cart]);
 
   const addToCart = (product: Product, quantity: number) => {
