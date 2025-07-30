@@ -43,11 +43,15 @@ export function SiteHeader() {
     }
   };
   
-  const marqueeTexts = [
+  const baseMarqueeTexts = [
     '🎉 Free Shipping On Orders Over $60',
     '⚽ New Season Arrivals Out Now',
     '🏆 Shop The Latest Kits',
   ];
+
+  const marqueeTexts = user
+    ? baseMarqueeTexts
+    : ['💸 Register and get 10% off EVERY order!', ...baseMarqueeTexts];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
