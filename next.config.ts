@@ -52,6 +52,12 @@ const nextConfig: NextConfig = {
         hostname: 'dswa1xdat8uez.cloudfront.net',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'drive.google.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

@@ -81,7 +81,7 @@ export default function HomePage() {
     { src: 'https://botasmaniacos.com/cdn/shop/files/F3151815-EFB3-4895-B9A7-CD5BF2E00479.jpg?v=1734387883&width=1646', alt: 'New football gear', hint: 'football cleats' },
     { src: 'https://dswa1xdat8uez.cloudfront.net/2mtmd%2Fpreview%2F69500362%2Fmain_full.png', alt: 'Fans cheering', hint: 'football boots' },
     { src: 'https://placehold.co/1920x1080.png', alt: 'Action shot', hint: 'football action' },
-    { src: 'https://placehold.co/1920x1080.png', alt: 'Team huddle', hint: 'team huddle' },
+    { src: 'https://drive.google.com/uc?export=view&id=1-Qn8vAt3cQMNxAhDsc2l422KjlwXY4Fk', alt: 'Team huddle', hint: 'team huddle' },
   ];
 
   return (
