@@ -75,6 +75,19 @@ This guide will help you set up the complete e-commerce platform with the new te
 
 ---
 
+## Step 4b: Get OpenRouter API Key (Optional, for AI fallback)
+
+1. Go to [OpenRouter.ai](https://openrouter.ai)
+2. Sign up for a free account
+3. Go to **Keys** section
+4. Create a new API key
+5. Copy the key → `OPENROUTER_API_KEY`
+6. (Optional) Set `OPENROUTER_DEFAULT_MODEL` to a specific model (defaults to `openrouter/auto` which uses the best free model)
+
+**Note**: OpenRouter will automatically be used as a fallback when Google Gemini quota is exhausted. The backend handles this automatically without any customer-facing changes.
+
+---
+
 ## Step 5: Configure Environment Variables
 
 ### Frontend (.env.local)
@@ -127,8 +140,12 @@ CLOUDINARY_CLOUD_NAME=your-cloud-name
 CLOUDINARY_API_KEY=xxxxx
 CLOUDINARY_API_SECRET=xxxxx
 
-# Google AI (Gemini)
+# Google AI (Gemini) - Primary AI provider
 GOOGLE_API_KEY=AIzaxxxxx
+
+# OpenRouter - Fallback AI provider (automatically used when Gemini quota is exhausted)
+OPENROUTER_API_KEY=sk-or-v1-xxxxx
+OPENROUTER_DEFAULT_MODEL=openrouter/auto  # Optional: defaults to 'openrouter/auto' (best free model)
 
 # Frontend URL (for CORS)
 FRONTEND_URL=http://localhost:9002
@@ -254,7 +271,11 @@ Make sure you've set `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` in your `.env.local` fi
 Make sure `FRONTEND_URL` in the backend `.env` matches your frontend URL.
 
 ### "AI features not working"
-The AI features require a valid Google API key. Without it, the chat and suggestions will return placeholder responses.
+The AI features require either a Google API key or OpenRouter API key (or both).
+- **Google Gemini** is used as the primary AI provider
+- **OpenRouter** automatically falls back when Gemini quota is exhausted
+- If both are configured, the system will automatically switch between them
+- Without any API keys, chat and suggestions will return placeholder responses
 
 ---
 
@@ -266,6 +287,7 @@ The AI features require a valid Google API key. Without it, the chat and suggest
 | Clerk | 10,000 MAUs |
 | Cloudinary | 25GB storage, 25GB bandwidth |
 | Google AI | 60 requests/minute |
+| OpenRouter | Free models available, pay-per-use for premium models |
 
 ---
 

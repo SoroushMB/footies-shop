@@ -27,6 +27,12 @@ export const config = {
     apiKey: process.env.GOOGLE_API_KEY || '',
   },
 
+  openrouter: {
+    apiKey: process.env.OPENROUTER_API_KEY || '',
+    // Default model to use when falling back to OpenRouter
+    defaultModel: process.env.OPENROUTER_DEFAULT_MODEL || 'openrouter/auto', // 'auto' uses the best free model
+  },
+
   frontend: {
     url: process.env.FRONTEND_URL || 'http://localhost:9002',
   },

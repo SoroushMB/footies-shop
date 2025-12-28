@@ -4,12 +4,12 @@ A modern, production-ready e-commerce platform for football (soccer) gear built 
 
 ## 🚀 Tech Stack
 
-- **Frontend**: Next.js 15 (App Router) with Bun.js runtime
+- **Frontend**: Next.js 16.1.1 (App Router) with Bun.js runtime
 - **Backend**: Express.js 5 with Bun.js runtime
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Clerk
 - **Images & Assets**: Cloudinary
-- **AI**: Google Gemini 2.0 Flash
+- **AI**: Google Gemini 2.0 Flash (primary) + OpenRouter (automatic fallback)
 - **Runtime**: Bun.js
 
 ## 📋 Prerequisites
@@ -18,7 +18,8 @@ A modern, production-ready e-commerce platform for football (soccer) gear built 
 - A Supabase account (free tier available)
 - A Clerk account (free tier available)
 - A Cloudinary account (free tier available)
-- A Google AI API key (for AI features)
+- A Google AI API key (for AI features - primary)
+- An OpenRouter API key (for AI fallback - optional but recommended)
 
 ## 🛠️ Installation
 
@@ -65,6 +66,8 @@ A modern, production-ready e-commerce platform for football (soccer) gear built 
    CLOUDINARY_API_KEY=xxxxx
    CLOUDINARY_API_SECRET=xxxxx
    GOOGLE_API_KEY=AIzaxxxxx
+   OPENROUTER_API_KEY=sk-or-v1-xxxxx
+   OPENROUTER_DEFAULT_MODEL=openrouter/auto
    FRONTEND_URL=http://localhost:9002
    ```
 
@@ -160,6 +163,31 @@ footies-shop/
 ├── SETUP.md               # Detailed setup guide
 └── package.json
 ```
+
+## 🤖 AI Features & Automatic Fallback
+
+The application includes intelligent AI features with automatic fallback:
+
+- **Primary Provider**: Google Gemini 2.0 Flash
+  - Used for product suggestions and customer support chat
+  - Fast and efficient responses
+
+- **Automatic Fallback**: OpenRouter
+  - Automatically activates when Gemini quota is exhausted
+  - Seamless transition - no customer-facing changes
+  - Uses free models by default (`openrouter/auto`)
+  - Backend handles all error detection and switching
+
+**How it works:**
+1. Backend attempts to use Gemini first
+2. If quota error detected (429, RESOURCE_EXHAUSTED, etc.), automatically switches to OpenRouter
+3. All switching happens server-side - customers never see errors
+4. Both providers use the same API interface for consistent responses
+
+**Configuration:**
+- Set `GOOGLE_API_KEY` for primary AI provider
+- Set `OPENROUTER_API_KEY` for automatic fallback
+- Optionally set `OPENROUTER_DEFAULT_MODEL` to specify a model (defaults to `openrouter/auto`)
 
 ## 🔑 API Endpoints
 
