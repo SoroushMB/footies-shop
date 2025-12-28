@@ -21,7 +21,8 @@
     "helmet": "^8.1.0",
     "zod": "^3.25.76",
     "@google/generative-ai": "^0.24.1",
-    "@openrouter/sdk": "^1.0.0"
+    "@openrouter/sdk": "^0.3.10",
+    "stripe": "^17.3.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.18",

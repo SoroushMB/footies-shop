@@ -97,7 +97,7 @@ Respond in JSON format:
   // Try Gemini first
   if (genai && config.google.apiKey) {
     try {
-      const model = genai.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+      const model = genai.getGenerativeModel({ model: 'gemini-3-flash-preview' });
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const text = response.text() || '';
@@ -226,7 +226,7 @@ Store policies:
   // Try Gemini first
   if (genai && config.google.apiKey) {
     try {
-      const model = genai.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+      const model = genai.getGenerativeModel({ model: 'gemini-3-flash-preview' });
 
       // Format messages for Gemini
       const geminiMessages = [

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { supabaseAdmin } from '../services/supabase.js';
 import { CheckoutSchema } from '../models/schemas.js';
+import { createPaymentIntent } from '../services/stripe.js';
 
 /**
  * POST /api/checkout - Process checkout
@@ -82,6 +83,32 @@ export async function processCheckout(req: Request, res: Response): Promise<void
       0
     );
 
+    // Create Stripe payment intent
+    let paymentIntentId: string | null = null;
+    if (input.paymentIntentId) {
+      paymentIntentId = input.paymentIntentId;
+    } else {
+      try {
+        const paymentIntent = await createPaymentIntent(totalAmount, 'usd', {
+          userId,
+          orderType: 'checkout',
+        });
+        paymentIntentId = paymentIntent.id;
+      } catch (error) {
+        console.error('Payment intent creation error:', error);
+        // Continue without payment intent if Stripe is not configured
+        if (error instanceof Error && error.message.includes('not configured')) {
+          console.warn('Stripe not configured, proceeding without payment intent');
+        } else {
+          res.status(500).json({
+            success: false,
+            message: 'Failed to create payment intent',
+          });
+          return;
+        }
+      }
+    }
+
     // Create order
     const orderItems = cartItems.map(item => ({
       productId: item.product_id,
@@ -97,7 +124,8 @@ export async function processCheckout(req: Request, res: Response): Promise<void
         items: orderItems,
         total_amount: totalAmount,
         shipping_address: input.shippingAddress,
-        status: 'pending',
+        payment_intent_id: paymentIntentId,
+        status: paymentIntentId ? 'pending' : 'processing',
       })
       .select('id')
       .single();
@@ -139,13 +167,27 @@ export async function processCheckout(req: Request, res: Response): Promise<void
         onConflict: 'clerk_id',
       });
 
+    // Get client secret if payment intent was created
+    let clientSecret: string | null = null;
+    if (paymentIntentId) {
+      try {
+        const { getPaymentIntent } = await import('../services/stripe.js');
+        const paymentIntent = await getPaymentIntent(paymentIntentId);
+        clientSecret = paymentIntent?.client_secret || null;
+      } catch (error) {
+        console.error('Failed to retrieve payment intent:', error);
+      }
+    }
+
     res.status(201).json({
       success: true,
       message: 'Order placed successfully',
       data: {
         orderId: order.id,
         totalAmount,
-        status: 'pending',
+        status: paymentIntentId ? 'pending' : 'processing',
+        paymentIntentId,
+        clientSecret,
       },
     });
   } catch (error) {

@@ -8,6 +8,7 @@ import productsRouter from './routes/products.js';
 import categoriesRouter from './routes/categories.js';
 import cartRouter from './routes/cart.js';
 import checkoutRouter from './routes/checkout.js';
+import paymentsRouter from './routes/payments.js';
 import usersRouter from './routes/users.js';
 import aiRouter from './routes/ai.js';
 
@@ -55,6 +56,7 @@ app.use('/api/products', productsRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/checkout', checkoutRouter);
+app.use('/api/payments', paymentsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/ai', aiRouter);
 

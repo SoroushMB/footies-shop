@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS orders (
   items JSONB NOT NULL,
   total_amount DECIMAL(10, 2) NOT NULL,
   shipping_address JSONB NOT NULL,
+  payment_intent_id VARCHAR(255),
   status VARCHAR(50) DEFAULT 'pending' CHECK (status IN ('pending', 'processing', 'shipped', 'delivered', 'cancelled')),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()

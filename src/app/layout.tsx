@@ -8,6 +8,7 @@ import { CartProvider } from '@/contexts/cart-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { ChatWidget } from '@/components/chat-widget';
 import { ClerkProvider } from '@clerk/nextjs';
+import { StripeProvider } from '@/components/stripe-provider';
 
 // Force dynamic rendering for all pages using this layout
 // This is required because ClerkProvider needs the publishableKey at runtime
@@ -121,7 +122,8 @@ export default function RootLayout({
             },
           }}
         >
-          <CartProvider>
+          <StripeProvider>
+            <CartProvider>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
               <main className="flex-1 container mx-auto px-4 py-8 pt-40">
@@ -130,7 +132,8 @@ export default function RootLayout({
               <SiteFooter />
               <Toaster />
             </div>
-          </CartProvider>
+            </CartProvider>
+          </StripeProvider>
         </ClerkProvider>
 
         <ChatWidget />

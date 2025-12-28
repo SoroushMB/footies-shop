@@ -227,13 +227,13 @@ export const cartApi = {
 
 // Checkout API
 export const checkoutApi = {
-  process: async (token: string, shippingAddress: ShippingAddress) => {
-    return apiRequest<{ orderId: string; totalAmount: number; status: string }>(
+  process: async (token: string, shippingAddress: ShippingAddress, paymentIntentId?: string) => {
+    return apiRequest<{ orderId: string; totalAmount: number; status: string; paymentIntentId?: string; clientSecret?: string }>(
       '/api/checkout',
       {
         method: 'POST',
         token,
-        body: { shippingAddress },
+        body: { shippingAddress, paymentIntentId },
       }
     );
   },
@@ -259,6 +259,27 @@ export const usersApi = {
       token,
       body: data,
     });
+  },
+};
+
+// Payments API
+export const paymentsApi = {
+  createIntent: async (token: string, amount: number, currency: string = 'usd') => {
+    return apiRequest<{ clientSecret: string; paymentIntentId: string }>(
+      '/api/payments/create-intent',
+      {
+        method: 'POST',
+        token,
+        body: { amount, currency },
+      }
+    );
+  },
+
+  getIntentStatus: async (token: string, paymentIntentId: string) => {
+    return apiRequest<{ id: string; status: string; amount: number; currency: string }>(
+      `/api/payments/intent/${paymentIntentId}`,
+      { token }
+    );
   },
 };
 

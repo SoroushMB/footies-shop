@@ -30,7 +30,14 @@ export const config = {
   openrouter: {
     apiKey: process.env.OPENROUTER_API_KEY || '',
     // Default model to use when falling back to OpenRouter
-    defaultModel: process.env.OPENROUTER_DEFAULT_MODEL || 'openrouter/auto', // 'auto' uses the best free model
+    // Using fastest free models: meta-llama/llama-3.2-3b-instruct:free (fastest) or google/gemini-2.0-flash-exp:free
+    defaultModel: process.env.OPENROUTER_DEFAULT_MODEL || 'meta-llama/llama-3.2-3b-instruct:free',
+  },
+
+  stripe: {
+    secretKey: process.env.STRIPE_SECRET_KEY || '',
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '',
+    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
   },
 
   frontend: {

@@ -78,6 +78,7 @@ export type OrderStatus = z.infer<typeof OrderStatusSchema>;
 
 export const CheckoutSchema = z.object({
   shippingAddress: ShippingAddressSchema,
+  paymentIntentId: z.string().optional(),
 });
 
 // User schemas
