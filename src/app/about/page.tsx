@@ -1,3 +1,5 @@
+// Force dynamic rendering for Clerk compatibility
+export const dynamic = 'force-dynamic';
 
 export default function AboutUsPage() {
   return (

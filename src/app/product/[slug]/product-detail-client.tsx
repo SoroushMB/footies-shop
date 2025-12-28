@@ -95,8 +95,9 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                       src={img}
                       alt={`${product.name} image ${index + 1}`}
                       fill
-                      objectFit="cover"
-                      className="rounded-xl"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="rounded-xl object-cover"
+                      priority={index === 0}
                       data-ai-hint="football equipment"
                     />
                   </div>
@@ -115,7 +116,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             <p className="text-3xl font-bold text-accent">${product.price.toFixed(2)}</p>
           </div>
           <p className="text-neutral-300 leading-relaxed">{product.description}</p>
-          
+
           <div className="space-y-4">
             <div>
               <h3 className="text-sm font-medium text-neutral-400 mb-2">Size</h3>
@@ -132,7 +133,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                 </SelectContent>
               </Select>
             </div>
-            
+
             <AddToCartButton
               onAddToCart={() => handleInitiateAction('addToCart')}
               onBuyNow={() => handleInitiateAction('buyNow')}

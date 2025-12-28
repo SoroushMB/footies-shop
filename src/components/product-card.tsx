@@ -40,8 +40,10 @@ export function ProductCard({ product }: ProductCardProps) {
             alt={product.name}
             width={400}
             height={300}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             data-ai-hint="football gear"
             className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+            loading="lazy"
           />
         </div>
       </Link>

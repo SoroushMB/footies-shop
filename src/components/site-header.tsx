@@ -1,10 +1,10 @@
-
 'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { LogOut, Menu, Search, ShoppingBag, User, X } from 'lucide-react';
+import { Menu, Search, ShoppingBag, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { SignedIn, SignedOut, UserButton, SignInButton } from '@clerk/nextjs';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -14,20 +14,10 @@ import { CartSheet } from './cart-sheet';
 import { Input } from './ui/input';
 import { cn } from '@/lib/utils';
 import { Icons } from './icons';
-import { useAuth } from '@/contexts/auth-provider';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from './ui/dropdown-menu';
 
 export function SiteHeader() {
   const categories = getCategories();
   const { cart } = useCart();
-  const { user, signOut } = useAuth();
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -42,16 +32,12 @@ export function SiteHeader() {
       setIsSearchActive(false);
     }
   };
-  
+
   const baseMarqueeTexts = [
     '🎉 Free Shipping On Orders Over $60',
     '⚽ New Season Arrivals Out Now',
     '🏆 Shop The Latest Kits',
   ];
-
-  const marqueeTexts = user
-    ? baseMarqueeTexts
-    : ['💸 Register or use your account to get 10% off EVERY order!', ...baseMarqueeTexts];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -77,39 +63,46 @@ export function SiteHeader() {
               </Link>
             ))}
           </nav>
-          
+
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white" onClick={() => setIsSearchActive(!isSearchActive)}>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:bg-white/10 hover:text-white"
+              onClick={() => setIsSearchActive(!isSearchActive)}
+            >
               {isSearchActive ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
             </Button>
 
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white">
-                    <User className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => router.push('/account')}>
-                    Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={signOut}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Logout</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <Link href="/account">
-                <Button variant="ghost" size="icon" className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white">
-                  <User className="h-5 w-5" />
+            {/* Clerk Authentication */}
+            <SignedIn>
+              <UserButton
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: 'w-9 h-9',
+                    userButtonPopoverCard: 'bg-black/90 backdrop-blur-xl border border-white/10',
+                    userButtonPopoverActionButton: 'hover:bg-white/10',
+                    userButtonPopoverActionButtonText: 'text-white',
+                    userButtonPopoverActionButtonIcon: 'text-white',
+                    userButtonPopoverFooter: 'hidden',
+                  },
+                }}
+              />
+            </SignedIn>
+
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="hidden md:inline-flex text-white hover:bg-white/10 hover:text-white"
+                >
+                  Sign In
                 </Button>
-              </Link>
-            )}
-            
+              </SignInButton>
+            </SignedOut>
+
             <CartSheet>
               <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10 hover:text-white">
                   <ShoppingBag className="h-5 w-5" />
@@ -157,21 +150,22 @@ export function SiteHeader() {
                               <Search className="h-5 w-5" />
                               Search
                           </Button>
-                          <Link href="/account">
-                            <Button variant="outline" className="w-full justify-start gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-                                <User className="h-5 w-5" />
+
+                          <SignedIn>
+                            <Link href="/account">
+                              <Button variant="outline" className="w-full justify-start gap-2" onClick={() => setIsMobileMenuOpen(false)}>
                                 Account
-                            </Button>
-                          </Link>
-                           {user && (
-                            <Button variant="outline" className="w-full justify-start gap-2" onClick={() => {
-                              signOut();
-                              setIsMobileMenuOpen(false);
-                            }}>
-                                <LogOut className="h-5 w-5" />
-                                Logout
-                            </Button>
-                          )}
+                              </Button>
+                            </Link>
+                          </SignedIn>
+
+                          <SignedOut>
+                            <SignInButton mode="modal">
+                              <Button variant="outline" className="w-full justify-start gap-2">
+                                Sign In
+                              </Button>
+                            </SignInButton>
+                          </SignedOut>
                       </div>
                   </div>
                 </div>
@@ -180,18 +174,18 @@ export function SiteHeader() {
           </div>
         </div>
       </div>
-      
+
       <div className="h-12 bg-accent flex items-center overflow-hidden">
         <div className="flex">
           <div className="whitespace-nowrap flex items-center animate-marquee">
-            {marqueeTexts.map((text, index) => (
+            {baseMarqueeTexts.map((text, index) => (
               <p key={index} className="text-accent-foreground font-bold text-lg mx-8">
                 {text}
               </p>
             ))}
           </div>
           <div className="whitespace-nowrap flex items-center animate-marquee" aria-hidden="true">
-            {marqueeTexts.map((text, index) => (
+            {baseMarqueeTexts.map((text, index) => (
               <p key={`dup-${index}`} className="text-accent-foreground font-bold text-lg mx-8">
                 {text}
               </p>
@@ -199,7 +193,7 @@ export function SiteHeader() {
           </div>
         </div>
       </div>
-      
+
       <div className={cn(
         "transition-all duration-300 ease-in-out overflow-hidden bg-transparent",
         isSearchActive ? "max-h-40 opacity-100" : "max-h-0 opacity-0"

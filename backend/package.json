@@ -1,0 +1,35 @@
+{
+  "name": "footies-shop-backend",
+  "version": "1.0.0",
+  "description": "Express.js backend for Footies-Shop e-commerce platform",
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "bun --watch src/app.ts",
+    "build": "echo 'Bun runs TypeScript directly - no build needed'",
+    "start": "bun src/app.ts",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@clerk/backend": "^1.21.2",
+    "@supabase/supabase-js": "^2.49.8",
+    "cloudinary": "^2.5.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "zod": "^3.25.76",
+    "@google/generative-ai": "^0.24.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.3",
+    "@types/bun": "latest",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  }
+}
+

@@ -1,16 +1,32 @@
 'use server';
 
-import { supportChat } from '@/ai/flows/support-chat';
-import type { ChatInput, ChatOutput } from '@/ai/flows/support-chat';
+import { aiApi } from '@/lib/api';
 
-export async function getChatResponse(input: ChatInput): Promise<ChatOutput> {
+interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export async function sendChatMessage(
+  message: string,
+  conversationHistory?: ChatMessage[]
+) {
   try {
-    const response = await supportChat(input);
-    return response;
-  } catch (error) {
-    console.error('Error fetching chat response:', error);
+    const response = await aiApi.chat(message, conversationHistory);
+
+    if (response.success && response.data) {
+      return {
+        response: response.data.response,
+      };
+    }
+
     return {
-      response: 'Sorry, I am having trouble connecting. Please try again later.',
+      response: 'I apologize, but I couldn\'t process your request. Please try again.',
+    };
+  } catch (error) {
+    console.error('Error in chat:', error);
+    return {
+      response: 'I\'m having trouble connecting right now. Please try again later.',
     };
   }
 }

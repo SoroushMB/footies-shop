@@ -24,13 +24,13 @@ export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
   const popularProducts = getPopularProducts();
   const categories = getCategories();
-  
+
   const [heroApi, setHeroApi] = React.useState<CarouselApi>()
   const [heroCurrent, setHeroCurrent] = React.useState(0)
 
   const [featuredApi, setFeaturedApi] = React.useState<CarouselApi>()
   const [featuredCurrent, setFeaturedCurrent] = React.useState(0)
-  
+
   const [popularApi, setPopularApi] = React.useState<CarouselApi>()
   const [popularCurrent, setPopularCurrent] = React.useState(0)
 
@@ -52,7 +52,7 @@ export default function HomePage() {
     setHeroCurrent(heroApi.selectedScrollSnap());
     heroApi.on("select", () => setHeroCurrent(heroApi.selectedScrollSnap()));
   }, [heroApi]);
-  
+
   React.useEffect(() => {
     if (!featuredApi) return;
     setFeaturedCurrent(featuredApi.selectedScrollSnap() % featuredProducts.length);
@@ -110,8 +110,9 @@ export default function HomePage() {
                       src={image.src}
                       alt={image.alt}
                       fill
-                      objectFit="cover"
-                      className="rounded-xl"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="rounded-xl object-cover"
+                      priority={index === 0}
                       data-ai-hint={image.hint}
                     />
                   </div>
@@ -130,7 +131,7 @@ export default function HomePage() {
               />
             ))}
           </div>
-          
+
           <Button size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90">
             Shop New Arrivals <ArrowRight className="ml-2 h-5 w-5" />
           </Button>

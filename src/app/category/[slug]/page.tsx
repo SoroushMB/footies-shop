@@ -12,14 +12,22 @@ import {
 } from '@/components/ui/select';
 import { Card } from '@/components/ui/card';
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
-  const category = getCategoryBySlug(params.slug);
-  const products = getProductsByCategory(params.slug);
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
+interface CategoryPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { slug } = await params;
+  const category = getCategoryBySlug(slug);
+  const products = getProductsByCategory(slug);
 
   if (!category) {
     notFound();
   }
-  
+
   const filters = category.filters || {};
 
   return (
@@ -27,7 +35,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
       <div className="md:col-span-1">
         <Card className="p-6 rounded-2xl glassmorphism sticky top-40">
           <h2 className="text-2xl font-bold mb-6 font-headline">{category.name}</h2>
-          
+
           <div className="space-y-6">
             <div>
               <h3 className="font-semibold mb-3 text-white">Sort by</h3>
@@ -59,7 +67,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
                 </Select>
               </div>
             )}
-            
+
             {filters.nationalTeams && (
               <div>
                 <h3 className="font-semibold mb-3 text-white">National Teams</h3>
@@ -75,7 +83,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
                 </Select>
               </div>
             )}
-            
+
             {filters.brands && (
               <div>
                 <h3 className="font-semibold mb-3 text-white">Brand</h3>

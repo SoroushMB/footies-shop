@@ -1,17 +1,27 @@
 'use server';
 
-import { productSuggestion } from '@/ai/flows/product-suggestion';
-import type { ProductSuggestionInput, ProductSuggestionOutput } from '@/ai/flows/product-suggestion';
+import { aiApi } from '@/lib/api';
 
-export async function getSuggestions(input: ProductSuggestionInput): Promise<ProductSuggestionOutput> {
+export async function getSuggestions(productId: string) {
   try {
-    const suggestions = await productSuggestion(input);
-    return suggestions;
-  } catch (error) {
-    console.error('Error fetching product suggestions:', error);
+    const response = await aiApi.getSuggestions(productId);
+
+    if (response.success && response.data) {
+      return {
+        suggestions: response.data.suggestions,
+        reasoning: response.data.reasoning,
+      };
+    }
+
     return {
       suggestions: [],
-      reasoning: 'Could not retrieve suggestions at this time.',
+      reasoning: 'Unable to get suggestions at this time.',
+    };
+  } catch (error) {
+    console.error('Error getting product suggestions:', error);
+    return {
+      suggestions: [],
+      reasoning: 'Unable to get suggestions at this time.',
     };
   }
 }

@@ -1,107 +1,210 @@
-# Firebase Studio
+# Footies-Shop 🏈
 
-This is a NextJS starter in Firebase Studio.
+A modern, production-ready e-commerce platform for football (soccer) gear built with Next.js, Express.js, Supabase, Clerk, and Cloudinary.
 
-To get started, take a look at src/app/page.tsx.
+## 🚀 Tech Stack
 
----
+- **Frontend**: Next.js 15 (App Router) with Bun.js runtime
+- **Backend**: Express.js 5 with Bun.js runtime
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Clerk
+- **Images & Assets**: Cloudinary
+- **AI**: Google Gemini 2.0 Flash
+- **Runtime**: Bun.js
 
-## Backend Generation Prompt for LLM
+## 📋 Prerequisites
 
-Below is a detailed prompt you can use to instruct another LLM to generate the backend for this project.
+- [Bun.js](https://bun.sh) (>=1.0.0)
+- A Supabase account (free tier available)
+- A Clerk account (free tier available)
+- A Cloudinary account (free tier available)
+- A Google AI API key (for AI features)
 
-### Prompt:
+## 🛠️ Installation
 
-You are an expert backend developer. Your task is to design and generate the complete backend code for an e-commerce application called **"Apex Football Gear"**. The frontend is already built using Next.js and React.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/SoroushMB/footies-shop.git
+   cd footies-shop
+   ```
 
-**1. Technology Stack:**
+2. **Install dependencies**
+   ```bash
+   # Install frontend dependencies
+   bun install
 
-*   **Framework:** Node.js with Express.js
-*   **Database:** Firebase Firestore (for product data, user profiles, and orders)
-*   **Authentication:** Firebase Authentication (integrate with the existing user accounts)
-*   **Programming Language:** TypeScript
-*   **Environment Variables:** Use a `.env` file for configuration (e.g., Firebase credentials, database URLs, secret keys).
+   # Install backend dependencies
+   cd backend
+   bun install
+   cd ..
+   ```
 
-**2. Core Backend Features & API Endpoints:**
+3. **Set up environment variables**
 
-Please generate the code for the following features, including API routes, controllers/services, and data models. Ensure all API endpoints handle request validation, error handling, and appropriate HTTP status codes.
+   Create `.env.local` in the root directory:
+   ```env
+   NEXT_PUBLIC_SITE_URL=http://localhost:9002
+   NEXT_PUBLIC_API_URL=http://localhost:3001
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_xxxxx
+   CLERK_SECRET_KEY=sk_test_xxxxx
+   NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJxxxxx
+   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your-cloud-name
+   ```
 
-**a. Product Management API (`/api/products`)**
+   Create `backend/.env`:
+   ```env
+   PORT=3001
+   NODE_ENV=development
+   CLERK_SECRET_KEY=sk_test_xxxxx
+   CLERK_PUBLISHABLE_KEY=pk_test_xxxxx
+   SUPABASE_URL=https://xxxxx.supabase.co
+   SUPABASE_ANON_KEY=eyJxxxxx
+   SUPABASE_SERVICE_ROLE_KEY=eyJxxxxx
+   CLOUDINARY_CLOUD_NAME=your-cloud-name
+   CLOUDINARY_API_KEY=xxxxx
+   CLOUDINARY_API_SECRET=xxxxx
+   GOOGLE_API_KEY=AIzaxxxxx
+   FRONTEND_URL=http://localhost:9002
+   ```
 
-*   `GET /api/products`: Fetch all products. Implement filtering by category (`?category=jerseys`), brand (`?brand=Nike`), and sorting (e.g., `?sortBy=price_asc`).
-*   `GET /api/products/:id`: Fetch a single product by its ID.
-*   `GET /api/products/featured`: Fetch all products where `isFeatured` is true.
-*   `GET /api/products/popular`: Fetch all products where `isPopular` is true.
+4. **Set up Supabase database**
+   - Go to your Supabase project SQL Editor
+   - Run the contents of `backend/supabase-schema.sql`
 
-**b. Category Management API (`/api/categories`)**
+## 🏃 Running Locally
 
-*   `GET /api/categories`: Fetch all product categories.
-*   `GET /api/categories/:slug`: Fetch a single category by its slug.
+### Development Mode
 
-**c. User Authentication & Profile API (`/api/auth`)**
+Run both frontend and backend:
+```bash
+bun run dev:all
+```
 
-*   **Login/Signup:** The frontend handles this via the Firebase client-side SDK. The backend needs to be ableto verify Firebase ID tokens sent from the client. Create middleware to protect routes by verifying these tokens.
-*   `GET /api/users/me`: A protected route that retrieves the profile of the currently authenticated user from Firestore.
-*   `PUT /api/users/me`: A protected route to update the authenticated user's profile information.
+Or run them separately:
 
-**d. Shopping Cart API (`/api/cart`)**
+**Frontend** (port 9002):
+```bash
+bun run dev
+```
 
-*   These endpoints must be protected and operate on the authenticated user's cart.
-*   `GET /api/cart`: Get the contents of the user's cart.
-*   `POST /api/cart`: Add a product to the cart. Expects `{ productId: string, quantity: number }`.
-*   `PUT /api/cart/:productId`: Update the quantity of a product in the cart. Expects `{ quantity: number }`.
-*   `DELETE /api/cart/:productId`: Remove a product from the cart.
+**Backend** (port 3001):
+```bash
+bun run dev:backend
+```
 
-**e. Order & Checkout API (`/api/checkout`)**
+### Production Build
 
-*   `POST /api/checkout`: A protected endpoint to handle the entire checkout process.
-    *   It should receive the user's cart contents and shipping information.
-    *   **Crucially, for now, simulate the payment processing part.** Do not implement a real payment gateway integration.
-    *   On successful "payment", it should create a new order document in Firestore, associate it with the user, and clear the user's shopping cart.
+```bash
+# Build frontend
+bun run build
 
-**f. AI Product Suggestion API (`/api/ai/suggestions`)**
+# Build backend
+cd backend
+bun run build
+cd ..
 
-*   `POST /api/ai/suggestions`: A protected endpoint that receives `{ currentProductId: string, userProfile: object }`.
-*   This endpoint should call a generative AI model (like Google's Gemini) with a prompt to suggest related products.
-*   The prompt should be structured like this: "You are an expert e-commerce assistant for a football gear store. A user is viewing '[Product Name]'. Based on this and their profile, suggest 3 related products and provide a brief reason."
-*   The endpoint should return the AI's suggestions and reasoning in a JSON format: `{ "suggestions": [...], "reasoning": "..." }`.
+# Start frontend
+bun run start
 
-**3. Database Schema (Firestore Collections):**
+# Start backend (in another terminal)
+cd backend
+bun run start
+```
 
-Please define the data structures for the following collections:
+## 🌐 Deployment on Render.com
 
-*   **`products`**: `id`, `name`, `description`, `price`, `category` (string), `brand`, `sizes` (array), `images` (array of URLs), `isFeatured` (boolean), `isPopular` (boolean).
-*   **`categories`**: `id`, `name`, `slug`.
-*   **`users`**: `uid` (Firebase Auth UID), `email`, `name`, `shippingAddress`, etc.
-*   **`carts`**: Each document ID should be the user's `uid`. Contains a subcollection or array of `cartItems` with `productId`, `quantity`, `price`.
-*   **`orders`**: `orderId`, `userId`, `items` (array of products), `totalAmount`, `shippingAddress`, `orderDate`, `status` (e.g., 'pending', 'shipped').
+This project is configured for deployment on Render.com. The `render.yaml` file contains the configuration for both frontend and backend services.
 
-**4. Project Structure:**
+### Steps to Deploy:
 
-Please organize the generated code into a logical directory structure. For example:
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+2. **Connect to Render**
+   - Go to [Render Dashboard](https://dashboard.render.com)
+   - Click "New +" → "Blueprint"
+   - Connect your GitHub repository
+   - Render will automatically detect `render.yaml` and create the services
+
+3. **Configure Environment Variables**
+   - Add all required environment variables in Render dashboard
+   - See `SETUP.md` for detailed instructions
+
+## 📁 Project Structure
 
 ```
-/
-├── src/
-│   ├── api/                // Express routes
-│   │   ├── products.ts
-│   │   ├── auth.ts
-│   │   └── ...
-│   ├── controllers/        // Business logic
-│   │   ├── productController.ts
-│   │   └── ...
-│   ├── models/             // Data interfaces/types
-│   │   ├── Product.ts
-│   │   └── ...
-│   ├── services/           // External service integrations (Firebase, GenAI)
-│   │   └── firebase.ts
-│   ├── middleware/
-│   │   └── authMiddleware.ts // Middleware to verify Firebase tokens
-│   ├── config/
-│   │   └── index.ts
-│   └── app.ts              // Main Express app setup
-├── .env
+footies-shop/
+├── src/                    # Next.js frontend
+│   ├── app/               # App Router pages
+│   ├── components/        # React components
+│   ├── contexts/          # React contexts
+│   ├── hooks/             # Custom hooks
+│   ├── lib/               # Utilities and API client
+│   └── middleware.ts       # Clerk auth middleware
+├── backend/               # Express.js backend
+│   ├── src/
+│   │   ├── app.ts         # Main Express app
+│   │   ├── config/        # Configuration
+│   │   ├── controllers/   # Route handlers
+│   │   ├── middleware/    # Auth & rate limiting
+│   │   ├── models/        # Zod schemas
+│   │   ├── routes/        # Express routes
+│   │   └── services/     # Supabase, Cloudinary, AI
+│   └── supabase-schema.sql
+├── render.yaml            # Render.com deployment config
+├── SETUP.md               # Detailed setup guide
 └── package.json
 ```
 
-Please provide the complete code for all the files mentioned above.
+## 🔑 API Endpoints
+
+### Public Endpoints
+- `GET /api/products` - Get all products
+- `GET /api/products/:id` - Get product by ID
+- `GET /api/products/featured` - Get featured products
+- `GET /api/products/popular` - Get popular products
+- `GET /api/categories` - Get all categories
+- `GET /api/categories/:slug` - Get category with products
+- `POST /api/ai/chat` - AI customer support chat
+
+### Protected Endpoints (Auth Required)
+- `GET /api/cart` - Get user's cart
+- `POST /api/cart` - Add item to cart
+- `PUT /api/cart/:itemId` - Update cart item
+- `DELETE /api/cart/:itemId` - Remove from cart
+- `POST /api/checkout` - Process checkout
+- `GET /api/checkout/orders` - Get user's orders
+- `GET /api/users/me` - Get user profile
+- `PUT /api/users/me` - Update user profile
+- `POST /api/ai/suggestions` - Get AI product suggestions
+
+## 🧪 Testing
+
+```bash
+# Type checking
+bun run typecheck
+
+# Linting
+bun run lint
+```
+
+## 📝 License
+
+This project is private and proprietary.
+
+## 👤 Author
+
+**SoroushMB**
+- GitHub: [@SoroushMB](https://github.com/SoroushMB)
+- Email: soroushmasoombabaei@gmail.com
+
+## 🙏 Acknowledgments
+
+- Built with [Next.js](https://nextjs.org)
+- Powered by [Bun.js](https://bun.sh)
+- Deployed on [Render.com](https://render.com)
