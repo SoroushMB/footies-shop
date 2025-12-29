@@ -9,7 +9,8 @@ This guide will help you set up the complete e-commerce platform with the new te
 - **Database**: Supabase (PostgreSQL)
 - **Images**: Cloudinary
 - **Authentication**: Clerk
-- **AI**: Google Gemini 2.0 Flash
+- **AI**: Google Gemini 3 Flash (primary) + OpenRouter (automatic fallback)
+- **Payments**: Stripe
 - **Runtime**: Bun.js
 
 ## Prerequisites
@@ -82,9 +83,26 @@ This guide will help you set up the complete e-commerce platform with the new te
 3. Go to **Keys** section
 4. Create a new API key
 5. Copy the key → `OPENROUTER_API_KEY`
-6. (Optional) Set `OPENROUTER_DEFAULT_MODEL` to a specific model (defaults to `openrouter/auto` which uses the best free model)
+6. (Optional) Set `OPENROUTER_DEFAULT_MODEL` to a specific model (defaults to `meta-llama/llama-3.2-3b-instruct:free` which is the fastest free model)
 
 **Note**: OpenRouter will automatically be used as a fallback when Google Gemini quota is exhausted. The backend handles this automatically without any customer-facing changes.
+
+---
+
+## Step 4c: Set Up Stripe (Required for Payments)
+
+1. Go to [stripe.com](https://stripe.com) and create an account
+2. Complete account verification
+3. Go to **Developers** → **API Keys**
+4. Copy these values:
+   - **Publishable key** → `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+   - **Secret key** → `STRIPE_SECRET_KEY`
+5. For webhooks (production):
+   - Go to **Developers** → **Webhooks**
+   - Click **"Add endpoint"**
+   - URL: `https://your-backend-url.onrender.com/api/webhooks/stripe`
+   - Select events: `payment_intent.succeeded`, `payment_intent.payment_failed`
+   - Copy the **Signing secret** → `STRIPE_WEBHOOK_SECRET`
 
 ---
 
@@ -115,6 +133,9 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJxxxxx
 
 # Cloudinary
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your-cloud-name
+
+# Stripe Payment Processing
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxx
 ```
 
 ### Backend (backend/.env)
@@ -145,7 +166,12 @@ GOOGLE_API_KEY=AIzaxxxxx
 
 # OpenRouter - Fallback AI provider (automatically used when Gemini quota is exhausted)
 OPENROUTER_API_KEY=sk-or-v1-xxxxx
-OPENROUTER_DEFAULT_MODEL=openrouter/auto  # Optional: defaults to 'openrouter/auto' (best free model)
+OPENROUTER_DEFAULT_MODEL=meta-llama/llama-3.2-3b-instruct:free  # Optional: defaults to fastest free model
+
+# Stripe Payment Processing
+STRIPE_SECRET_KEY=sk_test_xxxxx
+STRIPE_PUBLISHABLE_KEY=pk_test_xxxxx
+STRIPE_WEBHOOK_SECRET=whsec_xxxxx  # Required for production webhooks
 
 # Frontend URL (for CORS)
 FRONTEND_URL=http://localhost:9002

@@ -22,6 +22,8 @@ services:
         sync: false
       - key: NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
         sync: false
+      - key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        sync: false
 
   # Backend (Express.js)
   - type: web
@@ -58,5 +60,11 @@ services:
       - key: OPENROUTER_DEFAULT_MODEL
         sync: false
       - key: FRONTEND_URL
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
         sync: false
 
