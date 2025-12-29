@@ -1,6 +1,6 @@
 /**
  * RAG (Retrieval-Augmented Generation) Service
- * 
+ *
  * This service retrieves relevant context from the knowledge base
  * to enhance AI responses with accurate, up-to-date information.
  */
@@ -118,7 +118,7 @@ const STATIC_KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
 async function searchProducts(query: string, limit: number = 5): Promise<KnowledgeBaseEntry[]> {
   try {
     const searchTerms = query.toLowerCase().split(/\s+/);
-    
+
     // Search in product name, description, brand, and category
     const { data: products, error } = await supabaseAdmin
       .from('products')
@@ -170,7 +170,7 @@ export async function retrieveContext(
   } = {}
 ): Promise<KnowledgeBaseEntry[]> {
   const { includeProducts = true, maxEntries = 10 } = options;
-  
+
   const queryLower = query.toLowerCase();
   const results: KnowledgeBaseEntry[] = [];
 

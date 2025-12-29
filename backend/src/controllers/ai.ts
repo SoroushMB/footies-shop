@@ -54,6 +54,7 @@ export async function getSuggestions(req: Request, res: Response): Promise<void>
 
     const result = await getProductSuggestions(
       {
+        id: product.id,
         name: product.name,
         category: product.category,
         brand: product.brand,

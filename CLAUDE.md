@@ -57,6 +57,10 @@
 - **OpenRouter** - Automatic fallback AI provider
 - **@openrouter/sdk** (v0.3.10) - OpenRouter SDK
 - **Automatic fallback** when Gemini quota is exhausted
+- **RAG (Retrieval-Augmented Generation)** - Context-aware AI responses
+  - Retrieves product information from database
+  - Includes store policies, FAQs, and shipping information
+  - Enhances AI accuracy with real-time knowledge base
 
 ### Payment Processing
 - **Stripe** - Payment processing
@@ -158,6 +162,7 @@ studio/
 │   │   │   └── users.ts
 │   │   └── services/           # External service integrations
 │   │       ├── ai.ts           # Google Gemini + OpenRouter
+│   │       ├── rag.ts          # RAG (Retrieval-Augmented Generation) service
 │   │       ├── cloudinary.ts   # Cloudinary integration
 │   │       ├── stripe.ts       # Stripe integration
 │   │       └── supabase.ts     # Supabase integration
@@ -360,14 +365,16 @@ All protected routes require:
 - **Primary Provider**: Google Gemini 3 Flash Preview
 - **Fallback Provider**: OpenRouter (automatic)
 - **Fallback Model**: `meta-llama/llama-3.2-3b-instruct:free` (fastest free model)
+- **RAG System**: Retrieval-Augmented Generation for context-aware responses
 
 ### AI Service (`backend/src/services/ai.ts`)
 
 #### Product Suggestion Flow
 - **Function**: `getProductSuggestions(currentProduct, userProfile?)`
-- **Input**: Product details and optional user profile
+- **Input**: Product details (including ID) and optional user profile
 - **Output**: `{ suggestions: string[], reasoning: string }`
 - **Usage**: Called from `/api/ai/suggestions` endpoint
+- **RAG Integration**: Retrieves product context and similar products from database
 - **Fallback**: Automatically switches to OpenRouter on quota errors
 
 #### Support Chat Flow
@@ -375,7 +382,30 @@ All protected routes require:
 - **Input**: User message and optional conversation history
 - **Output**: `{ response: string }`
 - **Usage**: Called from `/api/ai/chat` endpoint
+- **RAG Integration**: Retrieves relevant policies, FAQs, and product information
 - **Fallback**: Automatically switches to OpenRouter on quota errors
+
+### RAG Service (`backend/src/services/rag.ts`)
+
+#### Knowledge Base
+- **Static Knowledge**: Store policies, shipping info, returns, FAQs, sizing guides
+- **Dynamic Knowledge**: Product information retrieved from Supabase database
+- **Retrieval**: Keyword-based search with relevance scoring
+
+#### Key Functions
+- `retrieveContext(query, options)` - Retrieves relevant knowledge base entries
+- `formatContextForPrompt(entries)` - Formats retrieved context for AI prompts
+- `getProductContext(productId)` - Gets product-specific context with similar products
+- `searchProducts(query, limit)` - Searches products in database by keywords
+
+#### Knowledge Base Contents
+- Shipping policies (free shipping thresholds, delivery times)
+- Returns and exchanges (30-day policy, size exchanges)
+- Sizing guides (jerseys, footwear, apparel)
+- Payment methods
+- Order tracking information
+- Product care instructions
+- Product categories and brands
 
 ### Automatic Fallback Mechanism
 

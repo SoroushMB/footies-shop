@@ -46,3 +46,11 @@ next-env.d.ts
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+# Firebase (no longer used)
+.firebaserc
+apphosting.yaml
+firebase-instructions.md
+
+# IDE indexes
+.idx/

@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { OpenRouter } from '@openrouter/sdk';
 import { config } from '../config/index.js';
+import { retrieveContext, formatContextForPrompt, getProductContext } from './rag.js';
 
 // Initialize Google AI client
 const genai = config.google.apiKey ? new GoogleGenerativeAI(config.google.apiKey) : null;
@@ -62,6 +63,7 @@ function isQuotaError(error: unknown): boolean {
  */
 export async function getProductSuggestions(
   currentProduct: {
+    id?: string;
     name: string;
     category: string;
     brand: string;
@@ -72,6 +74,19 @@ export async function getProductSuggestions(
     preferences?: string[];
   }
 ): Promise<ProductSuggestionResult> {
+  // Retrieve product context using RAG
+  let productContext = '';
+  if (currentProduct.id) {
+    productContext = await getProductContext(currentProduct.id);
+  }
+
+  // Retrieve related product information
+  const relatedContext = await retrieveContext(
+    `${currentProduct.name} ${currentProduct.category} ${currentProduct.brand}`,
+    { includeProducts: true, maxEntries: 5 }
+  );
+  const contextInfo = formatContextForPrompt(relatedContext);
+
   const prompt = `You are an expert e-commerce assistant for Footies-Shop, a premium football (soccer) gear store.
 
 A customer is viewing: "${currentProduct.name}"
@@ -79,14 +94,21 @@ Category: ${currentProduct.category}
 Brand: ${currentProduct.brand}
 Price: $${currentProduct.price}
 
+${productContext ? `\n${productContext}\n` : ''}
+
+${contextInfo ? `\n${contextInfo}\n` : ''}
+
 ${userProfile ? `Customer profile:
 - Recent purchases: ${userProfile.recentPurchases?.join(', ') || 'None'}
 - Preferences: ${userProfile.preferences?.join(', ') || 'Not specified'}` : ''}
 
-Based on this, suggest 3 related products that would complement their selection. Consider:
+Based on this information, suggest 3 related products that would complement their selection. Consider:
 1. Products from the same brand or category
 2. Complementary accessories
 3. Similar price range products
+4. Products that work well together
+
+Use the product information from the knowledge base to make accurate recommendations.
 
 Respond in JSON format:
 {
@@ -206,6 +228,13 @@ export async function supportChat(
   message: string,
   conversationHistory: { role: 'user' | 'assistant'; content: string }[] = []
 ): Promise<ChatResult> {
+  // Retrieve relevant context using RAG
+  const retrievedContext = await retrieveContext(message, {
+    includeProducts: true,
+    maxEntries: 8,
+  });
+  const contextInfo = formatContextForPrompt(retrievedContext);
+
   const systemPrompt = `You are a helpful customer support assistant for Footies-Shop, a premium online store for football (soccer) gear.
 
 You help customers with:
@@ -215,13 +244,15 @@ You help customers with:
 - Sizing guidance
 - General football gear advice
 
-Be friendly, professional, and concise. If you don't know something, suggest contacting human support.
+Be friendly, professional, and concise. Use the knowledge base information provided below to give accurate, helpful answers. If you don't know something that's not in the knowledge base, suggest contacting human support at support@footies-shop.com.
 
-Store policies:
-- Free shipping on orders over $50
-- 30-day return policy
-- Size exchanges are free
-- Standard shipping takes 3-5 business days`;
+${contextInfo ? `\n${contextInfo}\n` : ''}
+
+When answering questions:
+- Reference specific policies, products, or information from the knowledge base when relevant
+- Provide accurate pricing, shipping, and return information
+- Suggest specific products when customers ask for recommendations
+- Be helpful and proactive in solving customer issues`;
 
   // Try Gemini first
   if (genai && config.google.apiKey) {
