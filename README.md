@@ -9,7 +9,8 @@ A modern, production-ready e-commerce platform for football (soccer) gear built 
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Clerk
 - **Images & Assets**: Cloudinary
-- **AI**: Google Gemini 2.0 Flash (primary) + OpenRouter (automatic fallback)
+- **AI**: Google Gemini 3 Flash (primary) + OpenRouter (automatic fallback)
+- **Payments**: Stripe
 - **Runtime**: Bun.js
 
 ## 📋 Prerequisites
@@ -20,6 +21,7 @@ A modern, production-ready e-commerce platform for football (soccer) gear built 
 - A Cloudinary account (free tier available)
 - A Google AI API key (for AI features - primary)
 - An OpenRouter API key (for AI fallback - optional but recommended)
+- A Stripe account (for payment processing)
 
 ## 🛠️ Installation
 
@@ -51,6 +53,7 @@ A modern, production-ready e-commerce platform for football (soccer) gear built 
    NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJxxxxx
    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your-cloud-name
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxx
    ```
 
    Create `backend/.env`:
@@ -67,7 +70,10 @@ A modern, production-ready e-commerce platform for football (soccer) gear built 
    CLOUDINARY_API_SECRET=xxxxx
    GOOGLE_API_KEY=AIzaxxxxx
    OPENROUTER_API_KEY=sk-or-v1-xxxxx
-   OPENROUTER_DEFAULT_MODEL=openrouter/auto
+   OPENROUTER_DEFAULT_MODEL=meta-llama/llama-3.2-3b-instruct:free
+   STRIPE_SECRET_KEY=sk_test_xxxxx
+   STRIPE_PUBLISHABLE_KEY=pk_test_xxxxx
+   STRIPE_WEBHOOK_SECRET=whsec_xxxxx
    FRONTEND_URL=http://localhost:9002
    ```
 
@@ -136,7 +142,9 @@ This project is configured for deployment on Render.com. The `render.yaml` file 
 
 3. **Configure Environment Variables**
    - Add all required environment variables in Render dashboard
-   - See `SETUP.md` for detailed instructions
+   - See `SETUP.md` for detailed setup instructions
+   - See `DEPLOYMENT.md` for comprehensive deployment guide
+   - Use `PRODUCTION_CHECKLIST.md` to verify deployment steps
 
 ## 📁 Project Structure
 
@@ -168,14 +176,15 @@ footies-shop/
 
 The application includes intelligent AI features with automatic fallback:
 
-- **Primary Provider**: Google Gemini 2.0 Flash
+- **Primary Provider**: Google Gemini 3 Flash Preview
   - Used for product suggestions and customer support chat
+  - Latest model with improved performance
   - Fast and efficient responses
 
 - **Automatic Fallback**: OpenRouter
   - Automatically activates when Gemini quota is exhausted
   - Seamless transition - no customer-facing changes
-  - Uses free models by default (`openrouter/auto`)
+  - Uses fastest free model by default (`meta-llama/llama-3.2-3b-instruct:free`)
   - Backend handles all error detection and switching
 
 **How it works:**
@@ -185,9 +194,9 @@ The application includes intelligent AI features with automatic fallback:
 4. Both providers use the same API interface for consistent responses
 
 **Configuration:**
-- Set `GOOGLE_API_KEY` for primary AI provider
+- Set `GOOGLE_API_KEY` for primary AI provider (Gemini 3 Flash)
 - Set `OPENROUTER_API_KEY` for automatic fallback
-- Optionally set `OPENROUTER_DEFAULT_MODEL` to specify a model (defaults to `openrouter/auto`)
+- Optionally set `OPENROUTER_DEFAULT_MODEL` to specify a model (defaults to fastest free model)
 
 ## 🔑 API Endpoints
 
@@ -207,6 +216,9 @@ The application includes intelligent AI features with automatic fallback:
 - `DELETE /api/cart/:itemId` - Remove from cart
 - `POST /api/checkout` - Process checkout
 - `GET /api/checkout/orders` - Get user's orders
+- `GET /api/checkout/orders/:id` - Get order by ID
+- `POST /api/payments/create-intent` - Create Stripe payment intent
+- `GET /api/payments/intent/:id` - Get payment intent status
 - `GET /api/users/me` - Get user profile
 - `PUT /api/users/me` - Update user profile
 - `POST /api/ai/suggestions` - Get AI product suggestions

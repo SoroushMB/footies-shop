@@ -2,51 +2,75 @@
 
 ## Project Overview
 
-**Footies-Shop** is a modern e-commerce application built with Next.js 15 for selling football (soccer) gear. The application features AI-powered product suggestions, customer support chat, Firebase authentication, and a complete shopping cart/checkout system.
+**Footies-Shop** is a modern, production-ready e-commerce application built with Next.js 16 for selling football (soccer) gear. The application features AI-powered product suggestions, customer support chat, Stripe payment processing, and a complete shopping cart/checkout system.
 
 ### Key Features
 - E-commerce product catalog with categories (Jerseys, Footballs, Apparel, Footwear, Accessories)
-- Firebase Authentication for user management
-- Shopping cart with localStorage persistence (client-side) and Firestore (server-side)
-- AI-powered product suggestions using Google Genkit and Gemini 2.0 Flash
-- AI customer support chat widget
-- Protected API routes with Firebase token verification
+- Clerk Authentication for user management
+- Shopping cart with localStorage persistence (client-side) and Supabase (server-side)
+- AI-powered product suggestions using Google Gemini 3 Flash with OpenRouter fallback
+- AI customer support chat widget with automatic fallback
+- Stripe payment processing with payment intents
+- Protected API routes with Clerk token verification
 - Modern UI with glassmorphism effects and dark theme
 - Responsive design with mobile menu
+- Production-ready deployment configuration for Render.com
 
 ---
 
 ## Technology Stack
 
 ### Core Framework
-- **Next.js 15.3.3** (App Router)
-- **React 18.3.1**
-- **TypeScript 5**
+- **Next.js 16.1.1** (App Router) with Bun.js runtime
+- **React 19.0.0**
+- **TypeScript 5.8.3**
+
+### Backend Framework
+- **Express.js 5.1.0** with Bun.js runtime
+- **Bun.js** (>=1.0.0) as runtime and package manager
 
 ### Styling & UI
 - **Tailwind CSS 3.4.1** with custom configuration
 - **Radix UI** components (Dialog, Dropdown, Sheet, etc.)
-- **Framer Motion** for animations
+- **Framer Motion 12.23.26** for animations
 - **Lucide React** for icons
 - **Poppins** font from Google Fonts
 
 ### Backend & Database
-- **Firebase** (v11.9.1) - Client SDK for authentication
-- **Firebase Admin SDK** (v13.4.0) - Server-side operations
-- **Firestore** - NoSQL database for products, users, carts, orders
+- **Supabase** (PostgreSQL) - Database and backend services
+- **@supabase/supabase-js** (v2.49.8) - Client SDK
+- **Row Level Security (RLS)** enabled for data protection
+
+### Authentication
+- **Clerk** - Complete authentication solution
+- **@clerk/nextjs** (v6.12.0) - Next.js integration
+- **@clerk/backend** (v1.21.2) - Backend integration
+
+### Images & Assets
+- **Cloudinary** - Image storage and CDN
+- **next-cloudinary** (v6.17.5) - Next.js integration
+- **cloudinary** (v2.5.1) - Backend SDK
 
 ### AI Integration
-- **Genkit** (v1.14.1) - AI orchestration framework
-- **@genkit-ai/googleai** (v1.14.1) - Google AI integration
-- **Google Gemini 2.0 Flash** - AI model for suggestions and chat
+- **Google Gemini 3 Flash Preview** - Primary AI provider
+- **@google/generative-ai** (v0.24.1) - Google AI SDK
+- **OpenRouter** - Automatic fallback AI provider
+- **@openrouter/sdk** (v0.3.10) - OpenRouter SDK
+- **Automatic fallback** when Gemini quota is exhausted
+
+### Payment Processing
+- **Stripe** - Payment processing
+- **stripe** (v17.3.1) - Backend SDK
+- **@stripe/stripe-js** (v4.8.0) - Frontend SDK
+- **@stripe/react-stripe-js** (v3.7.0) - React components
 
 ### Validation & Forms
-- **Zod** (v3.24.2) - Schema validation
+- **Zod** (v3.25.76) - Schema validation
 - **React Hook Form** (v7.54.2) - Form management
-- **@hookform/resolvers** - Zod integration for forms
+- **@hookform/resolvers** (v5.2.2) - Zod integration for forms
 
 ### Other Dependencies
-- **date-fns** - Date utilities
+- **date-fns** (v4.1.0) - Date utilities
 - **embla-carousel-react** - Carousel component
 - **recharts** - Charting library
 - **class-variance-authority** - Component variants
@@ -58,82 +82,99 @@
 
 ```
 studio/
-├── src/
-│   ├── ai/                          # AI flows and Genkit configuration
-│   │   ├── flows/
-│   │   │   ├── product-suggestion.ts # AI product suggestion flow
-│   │   │   └── support-chat.ts      # AI customer support chat flow
-│   │   └── genkit.ts                # Genkit AI configuration
+├── src/                          # Next.js frontend
+│   ├── app/                     # App Router pages
+│   │   ├── actions/             # Server actions
+│   │   │   ├── chat.ts         # Chat action wrapper
+│   │   │   └── product.ts       # Product suggestion action wrapper
+│   │   ├── account/             # User account page
+│   │   ├── category/[slug]/     # Category product listing page
+│   │   ├── checkout/            # Checkout page
+│   │   ├── product/[slug]/      # Product detail page
+│   │   ├── sign-in/            # Clerk sign-in page
+│   │   ├── sign-up/            # Clerk sign-up page
+│   │   ├── layout.tsx          # Root layout with providers
+│   │   └── page.tsx             # Homepage
 │   │
-│   ├── app/                         # Next.js App Router
-│   │   ├── actions/                 # Server actions
-│   │   │   ├── chat.ts             # Chat action wrapper
-│   │   │   └── product.ts           # Product suggestion action wrapper
-│   │   │
-│   │   ├── api/                    # API routes (protected & public)
-│   │   │   ├── ai/
-│   │   │   │   └── suggestions/    # POST /api/ai/suggestions
-│   │   │   ├── cart/               # GET, POST /api/cart
-│   │   │   │   └── [productId]/    # PUT, DELETE /api/cart/:productId
-│   │   │   ├── categories/         # GET /api/categories
-│   │   │   │   └── [slug]/         # GET /api/categories/:slug
-│   │   │   ├── checkout/           # POST /api/checkout
-│   │   │   ├── products/           # GET /api/products
-│   │   │   │   ├── [id]/           # GET /api/products/:id
-│   │   │   │   ├── featured/       # GET /api/products/featured
-│   │   │   │   └── popular/        # GET /api/products/popular
-│   │   │   └── users/
-│   │   │       └── me/             # GET, PUT /api/users/me
-│   │   │
-│   │   ├── category/[slug]/        # Category product listing page
-│   │   ├── product/[slug]/         # Product detail page
-│   │   ├── checkout/               # Checkout page
-│   │   ├── account/                # User account page
-│   │   ├── layout.tsx              # Root layout with providers
-│   │   └── page.tsx                # Homepage
-│   │
-│   ├── components/                 # React components
-│   │   ├── ui/                     # shadcn/ui components
+│   ├── components/              # React components
+│   │   ├── ui/                 # shadcn/ui components
 │   │   ├── add-to-cart-button.tsx
 │   │   ├── cart-sheet.tsx
-│   │   ├── chat-widget.tsx         # AI support chat widget
+│   │   ├── chat-widget.tsx     # AI support chat widget
 │   │   ├── product-card.tsx
 │   │   ├── product-suggestions.tsx  # AI product suggestions component
 │   │   ├── site-footer.tsx
 │   │   ├── site-header.tsx
+│   │   ├── stripe-provider.tsx  # Stripe Elements provider
 │   │   └── welcome-dialog.tsx
 │   │
-│   ├── contexts/                   # React contexts
-│   │   ├── auth-provider.tsx       # Firebase auth state management
-│   │   └── cart-provider.tsx       # Shopping cart state (localStorage)
+│   ├── contexts/                # React contexts
+│   │   └── cart-provider.tsx   # Shopping cart state (localStorage + server sync)
 │   │
-│   ├── hooks/                      # Custom React hooks
+│   ├── hooks/                   # Custom React hooks
 │   │   ├── use-mobile.tsx
 │   │   └── use-toast.ts
 │   │
-│   ├── lib/                        # Utility libraries
-│   │   ├── data.ts                 # Static product/category data
-│   │   ├── firebase.ts             # Firebase client SDK config
-│   │   ├── firebase-admin.ts       # Firebase Admin SDK config
-│   │   └── utils.ts                # Utility functions (cn, etc.)
+│   ├── lib/                     # Utility libraries
+│   │   ├── api.ts              # API client for backend
+│   │   ├── data.ts             # Static product/category data
+│   │   ├── supabase.ts         # Supabase client config
+│   │   └── utils.ts            # Utility functions (cn, etc.)
 │   │
-│   ├── models/                     # TypeScript interfaces
+│   ├── models/                  # TypeScript interfaces
 │   │   ├── Cart.ts
 │   │   ├── Category.ts
 │   │   ├── Order.ts
 │   │   ├── Product.ts
 │   │   └── User.ts
 │   │
-│   └── middleware.ts               # Next.js middleware for auth
+│   └── middleware.ts            # Next.js middleware for Clerk auth
 │
-├── apphosting.yaml                 # Firebase App Hosting config
-├── components.json                 # shadcn/ui configuration
-├── firebase-instructions.md        # Firebase setup guide
-├── next.config.ts                  # Next.js configuration
-├── package.json
+├── backend/                      # Express.js backend
+│   ├── src/
+│   │   ├── app.ts              # Main Express app
+│   │   ├── config/             # Configuration
+│   │   │   └── index.ts       # Environment variable loading
+│   │   ├── controllers/        # Route handlers
+│   │   │   ├── ai.ts          # AI endpoints
+│   │   │   ├── cart.ts        # Cart endpoints
+│   │   │   ├── categories.ts  # Category endpoints
+│   │   │   ├── checkout.ts    # Checkout endpoints
+│   │   │   ├── payments.ts    # Stripe payment endpoints
+│   │   │   ├── products.ts    # Product endpoints
+│   │   │   └── users.ts       # User endpoints
+│   │   ├── middleware/         # Express middleware
+│   │   │   ├── auth.ts        # Clerk authentication middleware
+│   │   │   └── rateLimit.ts   # Rate limiting middleware
+│   │   ├── models/             # Zod schemas
+│   │   │   └── schemas.ts     # Request/response validation
+│   │   ├── routes/             # Express routes
+│   │   │   ├── ai.ts
+│   │   │   ├── cart.ts
+│   │   │   ├── categories.ts
+│   │   │   ├── checkout.ts
+│   │   │   ├── payments.ts    # Stripe payment routes
+│   │   │   ├── products.ts
+│   │   │   └── users.ts
+│   │   └── services/           # External service integrations
+│   │       ├── ai.ts           # Google Gemini + OpenRouter
+│   │       ├── cloudinary.ts   # Cloudinary integration
+│   │       ├── stripe.ts       # Stripe integration
+│   │       └── supabase.ts     # Supabase integration
+│   └── supabase-schema.sql      # Database schema
+│
+├── render.yaml                   # Render.com deployment config
+├── components.json               # shadcn/ui configuration
+├── next.config.ts                # Next.js configuration
+├── package.json                  # Frontend dependencies
+├── backend/package.json          # Backend dependencies
 ├── postcss.config.mjs
-├── tailwind.config.ts              # Tailwind CSS configuration
-└── tsconfig.json                   # TypeScript configuration
+├── tailwind.config.ts            # Tailwind CSS configuration
+├── tsconfig.json                 # TypeScript configuration
+├── DEPLOYMENT.md                 # Comprehensive deployment guide
+├── SETUP.md                      # Setup instructions
+├── PRODUCTION_CHECKLIST.md       # Production deployment checklist
+└── README.md                     # Project overview
 ```
 
 ---
@@ -155,6 +196,7 @@ interface Product {
   sizes: string[];
   isFeatured?: boolean;
   isPopular?: boolean;
+  stock: number;
 }
 ```
 
@@ -164,6 +206,8 @@ interface Category {
   id: string;
   name: string;
   slug: string;
+  description?: string;
+  imageUrl?: string;
   filters?: {
     brands?: string[];
     teams?: string[];
@@ -178,10 +222,11 @@ interface CartItem {
   productId: string;
   quantity: number;
   price: number;  // Price at time of adding to cart
+  size?: string;
 }
 
 interface Cart {
-  userId: string;  // Firebase UID
+  userId: string;  // Clerk user ID
   items: CartItem[];
 }
 ```
@@ -189,7 +234,7 @@ interface Cart {
 ### User
 ```typescript
 interface User {
-  uid: string;
+  uid: string;  // Clerk user ID
   email: string;
   name: string;
   shippingAddress?: {
@@ -204,11 +249,11 @@ interface User {
 
 ### Order
 ```typescript
-type OrderStatus = 'pending' | 'shipped' | 'delivered' | 'cancelled';
+type OrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
 
 interface Order {
   orderId: string;
-  userId: string;
+  userId: string;  // Clerk user ID
   items: CartItem[];
   totalAmount: number;
   shippingAddress: {
@@ -218,6 +263,7 @@ interface Order {
     zip: string;
     country: string;
   };
+  paymentIntentId?: string;  // Stripe payment intent ID
   orderDate: Date;
   status: OrderStatus;
 }
@@ -227,44 +273,60 @@ interface Order {
 
 ## API Routes
 
-### Public Routes
+### Backend API (Express.js)
 
-#### Products
+#### Public Routes
+
+**Products**
 - `GET /api/products` - Get all products
-  - Query params: `category`, `brand`, `sortBy` (price_asc, price_desc)
+  - Query params: `category`, `brand`, `search`, `minPrice`, `maxPrice`, `sortBy`, `page`, `limit`
 - `GET /api/products/:id` - Get product by ID
 - `GET /api/products/featured` - Get featured products
 - `GET /api/products/popular` - Get popular products
 
-#### Categories
+**Categories**
 - `GET /api/categories` - Get all categories
 - `GET /api/categories/:slug` - Get category by slug
 
-### Protected Routes (Require Firebase Auth Token)
+**AI**
+- `POST /api/ai/chat` - AI customer support chat (public)
+
+**Health**
+- `GET /health` - Health check endpoint
+
+#### Protected Routes (Require Clerk Auth Token)
 
 All protected routes require:
-- `Authorization: Bearer <firebase-id-token>` header
-- Middleware verifies token and adds `X-User-ID` header
+- `Authorization: Bearer <clerk-session-token>` header
+- Middleware verifies token and adds `userId` to request
 
-#### Cart
+**Cart**
 - `GET /api/cart` - Get user's cart
 - `POST /api/cart` - Add product to cart
-  - Body: `{ productId: string, quantity: number }`
-- `PUT /api/cart/:productId` - Update cart item quantity
+  - Body: `{ productId: string, quantity: number, size?: string }`
+- `PUT /api/cart/:itemId` - Update cart item quantity
   - Body: `{ quantity: number }`
-- `DELETE /api/cart/:productId` - Remove item from cart
+- `DELETE /api/cart/:itemId` - Remove item from cart
 
-#### Checkout
+**Checkout**
 - `POST /api/checkout` - Process checkout
-  - Body: `{ shippingAddress: { street, city, state, zip, country } }`
-  - Creates order, clears cart, simulates payment
+  - Body: `{ shippingAddress: {...}, paymentIntentId?: string }`
+  - Returns: `{ orderId, totalAmount, status, paymentIntentId, clientSecret }`
+- `GET /api/checkout/orders` - Get user's orders
+- `GET /api/checkout/orders/:id` - Get order by ID
 
-#### User Profile
+**Payments (Stripe)**
+- `POST /api/payments/create-intent` - Create Stripe payment intent
+  - Body: `{ amount: number, currency?: string }`
+  - Returns: `{ clientSecret, paymentIntentId }`
+- `GET /api/payments/intent/:id` - Get payment intent status
+
+**User Profile**
 - `GET /api/users/me` - Get current user profile
 - `PUT /api/users/me` - Update user profile
   - Body: `{ name?: string, shippingAddress?: {...} }`
 
-#### AI Suggestions
+**AI Suggestions**
 - `POST /api/ai/suggestions` - Get AI product suggestions
   - Body: `{ currentProductId: string }`
   - Returns: `{ suggestions: string[], reasoning: string }`
@@ -274,50 +336,83 @@ All protected routes require:
 ## Authentication & Authorization
 
 ### Client-Side Auth
-- Uses Firebase Auth client SDK (`src/lib/firebase.ts`)
-- `AuthProvider` context manages auth state
-- `useAuth()` hook provides: `{ user, loading, signOut }`
+- Uses Clerk Next.js SDK (`@clerk/nextjs`)
+- `ClerkProvider` wraps the application in root layout
+- `useAuth()` hook provides: `{ isSignedIn, userId, getToken }`
+- Protected routes handled by middleware
 
 ### Server-Side Auth
-- Middleware (`src/middleware.ts`) protects API routes
-- Verifies Firebase ID tokens from `Authorization` header
-- Adds `X-User-ID` header to requests for API routes
-- Protected routes: `/api/users/me`, `/api/cart/*`, `/api/checkout/*`, `/api/ai/suggestions/*`
+- Express middleware (`backend/src/middleware/auth.ts`) protects API routes
+- Verifies Clerk session tokens from `Authorization` header
+- Adds `userId` to request object for API routes
+- Protected routes: `/api/cart/*`, `/api/checkout/*`, `/api/users/*`, `/api/payments/*`, `/api/ai/suggestions`
 
-### Firebase Configuration
-- Client config in `src/lib/firebase.ts` (needs to be configured)
-- Admin config in `src/lib/firebase-admin.ts` (uses env vars):
-  - `FIREBASE_PROJECT_ID`
-  - `FIREBASE_CLIENT_EMAIL`
-  - `FIREBASE_PRIVATE_KEY`
+### Clerk Configuration
+- Publishable key: `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+- Secret key: `CLERK_SECRET_KEY` (backend only)
+- Redirect URLs configured in Clerk dashboard
 
 ---
 
 ## AI Integration
 
-### Genkit Setup
-- Configured in `src/ai/genkit.ts`
-- Uses Google AI plugin with Gemini 2.0 Flash model
+### Architecture
+- **Primary Provider**: Google Gemini 3 Flash Preview
+- **Fallback Provider**: OpenRouter (automatic)
+- **Fallback Model**: `meta-llama/llama-3.2-3b-instruct:free` (fastest free model)
 
-### AI Flows
+### AI Service (`backend/src/services/ai.ts`)
 
 #### Product Suggestion Flow
-- **File**: `src/ai/flows/product-suggestion.ts`
-- **Function**: `productSuggestion(input: ProductSuggestionInput)`
-- **Input**: `{ currentSelection: string, userProfile?: string }`
+- **Function**: `getProductSuggestions(currentProduct, userProfile?)`
+- **Input**: Product details and optional user profile
 - **Output**: `{ suggestions: string[], reasoning: string }`
 - **Usage**: Called from `/api/ai/suggestions` endpoint
+- **Fallback**: Automatically switches to OpenRouter on quota errors
 
 #### Support Chat Flow
-- **File**: `src/ai/flows/support-chat.ts`
-- **Function**: `supportChat(input: ChatInput)`
-- **Input**: `{ message: string }`
+- **Function**: `supportChat(message, conversationHistory?)`
+- **Input**: User message and optional conversation history
 - **Output**: `{ response: string }`
-- **Usage**: Called from `ChatWidget` component via server action
+- **Usage**: Called from `/api/ai/chat` endpoint
+- **Fallback**: Automatically switches to OpenRouter on quota errors
 
-### Server Actions
-- `src/app/actions/chat.ts` - Wraps `supportChat` flow
-- `src/app/actions/product.ts` - Wraps `productSuggestion` flow
+### Automatic Fallback Mechanism
+
+1. **Error Detection**: Detects quota errors (429, RESOURCE_EXHAUSTED, etc.)
+2. **Automatic Switching**: Seamlessly switches to OpenRouter
+3. **Transparent to Users**: No customer-facing errors
+4. **Logging**: Errors logged for monitoring
+
+### Configuration
+- `GOOGLE_API_KEY` - Required for Gemini
+- `OPENROUTER_API_KEY` - Required for fallback
+- `OPENROUTER_DEFAULT_MODEL` - Optional (defaults to fastest free model)
+
+---
+
+## Payment Processing
+
+### Stripe Integration
+
+#### Payment Flow
+1. User proceeds to checkout
+2. Frontend creates payment intent via `/api/payments/create-intent`
+3. Stripe Elements handles card input
+4. Payment confirmed via Stripe SDK
+5. Checkout completed via `/api/checkout` with `paymentIntentId`
+6. Order created with payment intent ID
+
+#### Stripe Service (`backend/src/services/stripe.ts`)
+- `createPaymentIntent()` - Create payment intent
+- `getPaymentIntent()` - Retrieve payment intent
+- `confirmPaymentIntent()` - Confirm payment
+- `verifyWebhookSignature()` - Verify webhook signatures
+
+#### Webhooks
+- Endpoint: `/api/webhooks/stripe` (to be implemented)
+- Events: `payment_intent.succeeded`, `payment_intent.payment_failed`
+- Used for order status updates
 
 ---
 
@@ -327,21 +422,23 @@ All protected routes require:
 
 #### Cart State (`CartProvider`)
 - Stored in React state + localStorage (`footies_shop_cart`)
-- Functions: `addToCart`, `removeFromCart`, `updateQuantity`, `clearCart`
+- Syncs with server cart when user signs in
+- Functions: `addToCart`, `removeFromCart`, `updateQuantity`, `clearCart`, `syncCart`
 - Access via `useCart()` hook
 
-#### Auth State (`AuthProvider`)
-- Managed by Firebase `onAuthStateChanged`
-- Provides user object and loading state
-- Access via `useAuth()` hook
+#### Auth State (Clerk)
+- Managed by Clerk SDK
+- Provides `isSignedIn`, `userId`, `getToken`
+- Access via `useAuth()` hook from `@clerk/nextjs`
 
 ### Server-Side State
 
-#### Firestore Collections
+#### Supabase Database
 - `products` - Product catalog
 - `categories` - Product categories
-- `users` - User profiles (keyed by UID)
-- `carts` - Shopping carts (keyed by UID)
+- `users` - User profiles (keyed by Clerk ID)
+- `carts` - Shopping carts (keyed by Clerk ID)
+- `cart_items` - Cart items
 - `orders` - Order history
 
 ---
@@ -361,12 +458,13 @@ All protected routes require:
 - Animated carousels for hero images and product listings
 - Toast notifications for user feedback
 - Loading skeletons for async content
+- Stripe Elements for secure payment input
 
 ### Custom Components
 - `ChatWidget` - Floating AI support chat
 - `ProductSuggestions` - AI-powered product recommendations
 - `CartSheet` - Slide-out shopping cart
-- `WelcomeDialog` - First-visit welcome popup
+- `StripeProvider` - Stripe Elements provider wrapper
 - `ProductCard` - Product display card
 - `SiteHeader` - Main navigation with search
 - `SiteFooter` - Footer component
@@ -376,53 +474,119 @@ All protected routes require:
 ## Data Flow
 
 ### Product Data
-- **Static Data**: `src/lib/data.ts` contains hardcoded products/categories
-- **Firestore**: API routes fetch from Firestore collections
-- **Note**: Currently using static data for display, Firestore for API operations
+- **Database**: Products stored in Supabase `products` table
+- **API**: Backend fetches from Supabase
+- **Frontend**: Fetches via `/api/products` endpoint
 
 ### Cart Data
 - **Client**: Stored in localStorage + React state
-- **Server**: Stored in Firestore `carts` collection (keyed by UID)
-- **Sync**: Client cart is independent; server cart used for checkout
+- **Server**: Stored in Supabase `carts` and `cart_items` tables
+- **Sync**: Client cart syncs with server when user signs in
 
 ### Order Flow
 1. User adds items to cart (client-side localStorage)
-2. User proceeds to checkout
-3. Checkout API fetches server cart from Firestore
-4. Order created in Firestore `orders` collection
-5. Server cart cleared after successful order
+2. User signs in (Clerk)
+3. Cart syncs with server
+4. User proceeds to checkout
+5. Payment intent created (Stripe)
+6. Payment confirmed (Stripe Elements)
+7. Order created in Supabase with payment intent ID
+8. Cart cleared
+9. Stock updated
 
 ---
 
 ## Environment Variables
 
-### Required for Firebase Admin
+### Frontend (.env.local)
+
 ```env
-FIREBASE_PROJECT_ID=your-project-id
-FIREBASE_CLIENT_EMAIL=your-client-email
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+# Site Configuration
+NEXT_PUBLIC_SITE_URL=http://localhost:9002
+NEXT_PUBLIC_API_URL=http://localhost:3001
+
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_xxxxx
+CLERK_SECRET_KEY=sk_test_xxxxx
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+
+# Supabase Database
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJxxxxx
+
+# Cloudinary Image Storage
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your-cloud-name
+
+# Stripe Payment Processing
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxx
 ```
 
-### Firebase Client Config
-- Must be configured in `src/lib/firebase.ts`
-- See `firebase-instructions.md` for setup guide
+### Backend (backend/.env)
 
-### Genkit/Google AI
-- API keys likely configured via environment or Genkit config
-- Check Genkit documentation for setup
+```env
+# Server Configuration
+PORT=3001
+NODE_ENV=development
+
+# Clerk Authentication
+CLERK_SECRET_KEY=sk_test_xxxxx
+CLERK_PUBLISHABLE_KEY=pk_test_xxxxx
+
+# Supabase Database
+SUPABASE_URL=https://xxxxx.supabase.co
+SUPABASE_ANON_KEY=eyJxxxxx
+SUPABASE_SERVICE_ROLE_KEY=eyJxxxxx
+
+# Cloudinary Image Storage
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=xxxxx
+CLOUDINARY_API_SECRET=xxxxx
+
+# Google AI (Gemini 3 Flash) - Primary AI Provider
+GOOGLE_API_KEY=AIzaxxxxx
+
+# OpenRouter - Fallback AI Provider
+OPENROUTER_API_KEY=sk-or-v1-xxxxx
+OPENROUTER_DEFAULT_MODEL=meta-llama/llama-3.2-3b-instruct:free
+
+# Stripe Payment Processing
+STRIPE_SECRET_KEY=sk_test_xxxxx
+STRIPE_PUBLISHABLE_KEY=pk_test_xxxxx
+STRIPE_WEBHOOK_SECRET=whsec_xxxxx
+
+# Frontend URL (for CORS)
+FRONTEND_URL=http://localhost:9002
+```
 
 ---
 
 ## Development Scripts
 
+### Frontend
 ```bash
-npm run dev          # Start dev server on port 9002 with Turbopack
-npm run genkit:dev   # Start Genkit dev server
-npm run genkit:watch # Start Genkit with watch mode
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run typecheck    # Run TypeScript type checking
+bun run dev          # Start dev server on port 9002 with Turbopack
+bun run build        # Build for production
+bun run start        # Start production server
+bun run lint         # Run ESLint
+bun run typecheck    # Run TypeScript type checking
+```
+
+### Backend
+```bash
+cd backend
+bun run dev          # Start dev server with watch mode
+bun run build        # Build for production (Bun runs TS directly)
+bun run start        # Start production server
+bun run lint         # Run ESLint
+bun run typecheck    # Run TypeScript type checking
+```
+
+### Both
+```bash
+bun run dev:all      # Run both frontend and backend simultaneously
 ```
 
 ---
@@ -431,7 +595,8 @@ npm run typecheck    # Run TypeScript type checking
 
 ### `next.config.ts`
 - TypeScript and ESLint errors ignored during builds
-- Image domains configured for remote images (placehold.co, unsplash.com, etc.)
+- Image domains configured for remote images (Cloudinary, Unsplash, etc.)
+- Optimized for production builds
 
 ### `tailwind.config.ts`
 - Custom color system with CSS variables
@@ -442,11 +607,18 @@ npm run typecheck    # Run TypeScript type checking
 ### `tsconfig.json`
 - Path alias: `@/*` → `./src/*`
 - Strict mode enabled
-- ES2017 target
+- ES2022 target
 
 ### `middleware.ts`
-- Protects API routes with Firebase token verification
-- Matches: `/api/users/me`, `/api/cart/*`, `/api/checkout/*`, `/api/ai/suggestions/*`
+- Protects routes with Clerk authentication
+- Public routes: `/`, `/sign-in`, `/sign-up`, `/product/*`, `/category/*`
+- Protected routes: `/account/*`, `/checkout/*`
+
+### `render.yaml`
+- Render.com deployment configuration
+- Frontend and backend service definitions
+- Environment variable templates
+- Build and start commands
 
 ---
 
@@ -459,7 +631,7 @@ npm run typecheck    # Run TypeScript type checking
 
 ### Code Organization
 - Server actions in `app/actions/`
-- API routes in `app/api/`
+- API routes handled by Express backend
 - Shared types in `models/`
 - Utilities in `lib/`
 - UI components in `components/`
@@ -473,64 +645,95 @@ npm run typecheck    # Run TypeScript type checking
 - API routes return JSON with `success` and `message` fields
 - Try-catch blocks with console.error logging
 - User-friendly error messages
+- Automatic AI fallback on errors
+
+---
+
+## Production Considerations
+
+### Performance Optimizations
+- Next.js automatic static optimization
+- Image optimization via Cloudinary CDN
+- API response caching
+- Database query optimization
+- Connection pooling (Supabase)
+
+### Security Best Practices
+- Environment variables for all secrets
+- Row Level Security (RLS) on Supabase tables
+- Rate limiting on API endpoints
+- CORS configuration
+- Input validation with Zod
+- Stripe handles PCI compliance
+
+### Monitoring
+- Render dashboard for service health
+- Supabase dashboard for database metrics
+- Clerk dashboard for authentication metrics
+- Stripe dashboard for payment metrics
+- Error logging to console (consider Sentry for production)
 
 ---
 
 ## Known Issues & TODOs
 
 ### Current Limitations
-1. **Dual Cart System**: Client uses localStorage, server uses Firestore - not fully synchronized
-2. **Static Product Data**: Products are hardcoded in `data.ts` but API expects Firestore
-3. **Payment Simulation**: Checkout simulates payment (no real payment gateway)
-4. **Firebase Config**: Client Firebase config needs to be set up
-5. **Firebase Admin**: Requires environment variables for service account
+1. **Cart Sync**: Client and server carts sync on sign-in, but not real-time
+2. **Webhook Handler**: Stripe webhook endpoint needs implementation
+3. **Error Tracking**: Consider integrating Sentry for production error tracking
+4. **Analytics**: No analytics integration (consider adding)
 
 ### Potential Improvements
-- Sync client and server cart systems
-- Migrate static product data to Firestore
-- Add real payment gateway integration
-- Implement product search functionality
-- Add order history page
-- Add product reviews/ratings
-- Implement wishlist functionality
-- Add email notifications for orders
+- Real-time cart synchronization
+- Email notifications for orders
+- Order tracking page
+- Product reviews/ratings
+- Wishlist functionality
+- Advanced search functionality
+- Admin dashboard
+- Inventory management
 
 ---
 
 ## Testing & Deployment
 
 ### Development
-- Dev server runs on port 9002
-- Hot reload with Turbopack
-- Genkit dev server for AI flows
+- Dev server runs on port 9002 (frontend) and 3001 (backend)
+- Hot reload with Turbopack (frontend) and Bun watch (backend)
+- Type checking with TypeScript
 
 ### Production
-- Build with `npm run build`
-- Deploy to Firebase App Hosting (see `apphosting.yaml`)
-- Environment variables must be configured
+- Build with `bun run build` (frontend)
+- Deploy to Render.com using `render.yaml`
+- Environment variables configured in Render dashboard
+- Database schema executed in Supabase
 
-### Firebase App Hosting
-- Configuration in `apphosting.yaml`
-- See Firebase documentation for deployment
+### Deployment
+- **Platform**: Render.com
+- **Runtime**: Bun.js
+- **Configuration**: `render.yaml` blueprint
+- **Documentation**: See `DEPLOYMENT.md` for comprehensive guide
 
 ---
 
 ## Important Notes
 
-1. **Firebase Setup Required**: Both client and admin SDKs need configuration
-2. **Data Migration**: Consider migrating static product data to Firestore
-3. **Cart Sync**: Client and server carts operate independently - may need synchronization strategy
-4. **AI API Keys**: Ensure Google AI/Genkit API keys are configured
-5. **Image Hosting**: Product images use external URLs - consider Firebase Storage
-6. **Authentication**: User registration/login handled by Firebase Auth UI (not visible in codebase)
+1. **Clerk Setup Required**: Both frontend and backend need Clerk keys
+2. **Supabase Setup**: Database schema must be executed before use
+3. **Stripe Setup**: Payment processing requires Stripe account and keys
+4. **AI Keys**: Google AI key required, OpenRouter key recommended for fallback
+5. **Environment Variables**: All secrets must be configured before deployment
+6. **Database**: RLS policies are enabled - service role key required for admin operations
 
 ---
 
 ## Related Documentation
 
-- `README.md` - Project overview and backend generation prompt
-- `firebase-instructions.md` - Firebase configuration guide
-- `docs/blueprint.md` - Project blueprint (if exists)
+- `README.md` - Project overview and quick start
+- `SETUP.md` - Detailed setup instructions
+- `DEPLOYMENT.md` - Comprehensive deployment guide
+- `PRODUCTION_CHECKLIST.md` - Production deployment checklist
+- `render.yaml` - Render.com deployment configuration
 
 ---
 
@@ -538,12 +741,14 @@ npm run typecheck    # Run TypeScript type checking
 
 For questions about this codebase, refer to:
 - Next.js documentation: https://nextjs.org/docs
-- Firebase documentation: https://firebase.google.com/docs
-- Genkit documentation: https://genkit.dev
-- shadcn/ui documentation: https://ui.shadcn.com
+- Clerk documentation: https://clerk.com/docs
+- Supabase documentation: https://supabase.com/docs
+- Stripe documentation: https://stripe.com/docs
+- Bun.js documentation: https://bun.sh/docs
+- Render documentation: https://render.com/docs
 
 ---
 
-*Last Updated: Generated from codebase scan*
+*Last Updated: December 2024*
 *Project: Footies-Shop E-commerce Platform*
-
+*Version: 2.0.0*
